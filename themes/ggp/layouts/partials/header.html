@@ -1,7 +1,7 @@
 			<header class="clearfix">
 				<h1>{{ with .Site.Params.title }}{{ . | markdownify }}{{ end }}<span>{{ with .Site.Params.subtitle }}{{ . | markdownify }}{{ end }}</span></h1>
 
-				<a href=''>
+				<a href='https://github.com/{{ .Site.Params.nickname }}'>
 		              <svg version="1.1" class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
 		                <path fill-rule="evenodd" clip-rule="evenodd" fill="#111111" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
 		                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
@@ -15,8 +15,10 @@
 		              </svg>
 					{{ with .Site.Params.nickname }}{{ . | markdownify }}{{ end }}
 				</a>
+
 				&nbsp;&nbsp;&nbsp;&squf;&nbsp;&nbsp;&nbsp;
-				<a href=''>
+
+				<a href='https://twitter.com/{{ .Site.Params.nickname }}'>
 					<svg version="1.1" class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
 						<path fill="#111111" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
 						c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27
