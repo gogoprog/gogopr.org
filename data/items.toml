@@ -1,4 +1,25 @@
 [[items]]
+title = "Blind Delivery"
+image = "images/blind.png"
+thumb = "images/blind.png"
+alt = ""
+description = """
+Game done for the citysimjam2016.
+<br/><a href='http://blinddelivery.bitballoon.com/'>Play</a>
+<br/><a href='https://github.com/gogoprog/citysimjam2016'>Sources</a>
+"""
+[[items]]
+title = "Chamosqui"
+image = "images/chamosqui.png"
+thumb = "images/chamosqui.png"
+alt = ""
+description = """
+Feed the hungry chameleon!
+Game done for the lowrezjam2016.
+<br/><a href='https://gogoprog.itch.io/chamosqui'>Play</a>
+<br/><a href='https://github.com/gogoprog/lowrezjam2016'>Sources</a>
+"""
+[[items]]
 title = "Objectif: Niquer Au Plutaupe"
 image = "images/onap.jpg"
 thumb = "images/onap.jpg"
