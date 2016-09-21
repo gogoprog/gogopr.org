@@ -1,0 +1,29 @@
+# Site settings
+baseurl = "http://replace-this-with-your-hugo-site.com/"
+languageCode = "en-us"
+title = "Hugrid - Grid Theme For Hugo"
+theme = "ggp"
+# Enter your tracking code to enable Google Analytics
+googleAnalytics = "UA-XXXXXXXX-Y"
+
+contentdir = "content"
+datadir = "data"
+layoutdir = "layouts"
+publishdir = "public"
+
+[params]
+    # Meta
+    title = "gogopr.org"
+    subtitle = "gogoprog's games portfolio."
+    author = "Gauthier Billot"
+    nickname = "gogoprog"
+    description = "gogopr.org"
+    keywords = "gogoprog, portfolio, linux, game"
+
+    # Body background color
+	bodybgcolor = "#c9c9c9"
+
+    # Footer text
+    footertext = "Made by [Codrops](http://tympanus.net/codrops/2013/03/19/thumbnail-grid-with-expanding-preview/), [Hugo](http://gohugo.io) and [me](https://github.com/aerohub)"
+
+    github = "https://github.com/gogoprog"
