@@ -20,3 +20,55 @@ A village management game done during Global Game Jam 2015 in Brussels.
 <br/><a href='http://globalgamejam.org/2015/games/village-cool-guys-vs-bad-green-monsters'>GGJ entry</a>
 <br/><a href='https://github.com/gogoprog/ggj15'>Sources</a>
 """
+[[items]]
+title = "Redneck Galaxy"
+image = "images/redneck.jpg"
+thumb = "images/redneck.jpg"
+alt = ""
+description = """
+Two redneck farmers trying to survive in a galaxy full of slugs.
+Game done during Monster Game Jam 2014.
+<br/><a href='https://v6p9d9t4.ssl.hwcdn.net/html/26480/index.html'>Play</a>
+<br/><a href='https://github.com/gogoprog/monstergamejam2014'>Sources</a>
+"""
+[[items]]
+title = "Crappy Bird"
+image = "images/crappybird.jpg"
+thumb = "images/crappybird.jpg"
+alt = ""
+description = """
+A quickly-done Flappy Bird clone using LÖVE2D.
+<br/><a href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/windows'>Windows build</a>
+<br/><a href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/osx'>OSX build</a>
+<br/><a href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/love'>.love file</a>
+"""
+[[items]]
+title = "The Bloody Sausage"
+image = "images/bloody.png"
+thumb = "images/bloody.png"
+alt = ""
+description = """
+An intense shooter game made during Global Game Jam 2014 in Antwerpen.
+<br/><a href='http://globalgamejam.org/2014/games/bloody-sausage'>GGJ entry</a>
+<br/><a href='https://www.youtube.com/watch?v=s_WQbbIQZ6g'>Video</a>
+"""
+[[items]]
+title = "Ultimate Care Bear Love Rampage"
+image = "images/care.png"
+thumb = "images/care.png"
+alt = ""
+description = """
+A 1vs1 race game made during Global Game Jam 2013 in Antwerpen.
+<br/><a href='http://2013.globalgamejam.org/2013/ultimate-care-bear-love-rampage'>GGJ entry</a>
+<br/><a href='https://www.youtube.com/watch?v=CmoNtPJlTA8'>Video</a>
+"""
+[[items]]
+title = "Politieke Chaos"
+image = "images/chaos.png"
+thumb = "images/chaos.png"
+alt = ""
+description = """
+A beer-throwing game made during Global Game Jam 2011 in Antwerpen.
+<br/><a href='http://archive.globalgamejam.org/2011/politieke-chaos'>GGJ entry</a>
+<br/><a href='https://www.youtube.com/watch?v=stlo3FySbL8'>Video</a>
+"""

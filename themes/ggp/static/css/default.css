@@ -42,6 +42,10 @@ a {
 	text-decoration: none;
 }
 
+a:hover {
+	color:#fff;
+}
+
 .container {
 	width: 100%;
 	position: relative;
