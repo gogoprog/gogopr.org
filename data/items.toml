@@ -1,109 +1,11 @@
 [[items]]
-title = "Hugrid Theme"
-image = "images/full/1.png"
-thumb = "images/thumbs/1.png"
-alt = "Hugrid Theme"
+title = "Objectif: Niquer Au Plutaupe"
+image = "images/onap.jpg"
+thumb = "images/onap.jpg"
+alt = "ONAP"
 description = """
-A simple grid theme for Hugo.A kind of boilerplate to perform anyone or anything quickly.
-Portfolio, collection, bookmarks, contacts and so on.
-<br/>
-<a href='//google.be'>Link</a>
+A labyrinth game with a blind mole. Made during the CreativeJam 2015 in Mons.
+<br/><a href='https://onap.bitballoon.com/'>Play</a>
+<br/><a href='https://www.facebook.com/games/objectifnap/'>Facebook page</a>
+<br/><a href='https://github.com/gogoprog/creativejam2015'>Sources</a>
 """
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/2.png"
-thumb = "images/thumbs/2.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/3.png"
-thumb = "images/thumbs/3.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/4.png"
-thumb = "images/thumbs/4.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/5.png"
-thumb = "images/thumbs/5.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/3.png"
-thumb = "images/thumbs/3.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/4.png"
-thumb = "images/thumbs/4.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/1.png"
-thumb = "images/thumbs/1.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/2.png"
-thumb = "images/thumbs/2.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/3.png"
-thumb = "images/thumbs/3.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/4.png"
-thumb = "images/thumbs/4.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/5.png"
-thumb = "images/thumbs/5.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/2.png"
-thumb = "images/thumbs/2.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/3.png"
-thumb = "images/thumbs/3.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
-[[items]]
-title = "Hugrid Theme"
-image = "images/full/1.png"
-thumb = "images/thumbs/1.png"
-alt = "Hugrid Theme"
-description = "A simple grid theme for Hugo. A kind of boilerplate to perform anyone or anything quickly. Portfolio, collection, bookmarks, contacts and so on."
-url = "https://github.com/aerohub/hugrid"
