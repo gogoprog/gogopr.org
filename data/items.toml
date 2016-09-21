@@ -9,3 +9,14 @@ A labyrinth game with a blind mole. Made during the CreativeJam 2015 in Mons.
 <br/><a href='https://www.facebook.com/games/objectifnap/'>Facebook page</a>
 <br/><a href='https://github.com/gogoprog/creativejam2015'>Sources</a>
 """
+[[items]]
+title = "The Village Cool Guys vs Bad Green Monsters"
+image = "images/coolguys.png"
+thumb = "images/coolguys.png"
+alt = ""
+description = """
+A village management game done during Global Game Jam 2015 in Brussels.
+<br/><a href='https://village-cool-guys.bitballoon.com/'>Play</a>
+<br/><a href='http://globalgamejam.org/2015/games/village-cool-guys-vs-bad-green-monsters'>GGJ entry</a>
+<br/><a href='https://github.com/gogoprog/ggj15'>Sources</a>
+"""
