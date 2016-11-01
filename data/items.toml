@@ -1,4 +1,14 @@
 [[items]]
+title = "Fish and Destroy"
+image = "images/fish.png"
+thumb = "images/fish.png"
+alt = ""
+description = """
+A RTS game made for the fishing jam 2.
+<br/><a href='https://gogoprog.itch.io/fish-and-destroy'>Play</a>
+<br/><a href='https://github.com/gogoprog/fishingjam2016'>Sources</a>
+"""
+[[items]]
 title = "Blind Delivery"
 image = "images/blind.png"
 thumb = "images/blind.png"
