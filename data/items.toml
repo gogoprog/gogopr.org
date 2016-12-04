@@ -5,8 +5,8 @@ thumb = "images/fish.png"
 alt = ""
 description = """
 A RTS game made for the fishing jam 2.
-<br/><a href='https://gogoprog.itch.io/fish-and-destroy'>Play</a>
-<br/><a href='https://github.com/gogoprog/fishingjam2016'>Sources</a>
+<br/><a target='_blank' href='https://gogoprog.itch.io/fish-and-destroy'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/fishingjam2016'>Sources</a>
 """
 [[items]]
 title = "Blind Delivery"
@@ -15,8 +15,8 @@ thumb = "images/blind.png"
 alt = ""
 description = """
 Game done for the citysimjam2016.
-<br/><a href='http://blinddelivery.bitballoon.com/'>Play</a>
-<br/><a href='https://github.com/gogoprog/citysimjam2016'>Sources</a>
+<br/><a target='_blank' href='http://blinddelivery.bitballoon.com/'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/citysimjam2016'>Sources</a>
 """
 [[items]]
 title = "Chamosqui"
@@ -26,8 +26,8 @@ alt = ""
 description = """
 Feed the hungry chameleon!
 Game done for the lowrezjam2016.
-<br/><a href='https://gogoprog.itch.io/chamosqui'>Play</a>
-<br/><a href='https://github.com/gogoprog/lowrezjam2016'>Sources</a>
+<br/><a target='_blank' href='https://gogoprog.itch.io/chamosqui'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/lowrezjam2016'>Sources</a>
 """
 [[items]]
 title = "Objectif: Niquer Au Plutaupe"
@@ -36,9 +36,9 @@ thumb = "images/onap.jpg"
 alt = "ONAP"
 description = """
 A labyrinth game with a blind mole. Made during the CreativeJam 2015 in Mons.
-<br/><a href='https://onap.bitballoon.com/'>Play</a>
-<br/><a href='https://www.facebook.com/games/objectifnap/'>Facebook page</a>
-<br/><a href='https://github.com/gogoprog/creativejam2015'>Sources</a>
+<br/><a target='_blank' href='https://onap.bitballoon.com/'>Play</a>
+<br/><a target='_blank' href='https://www.facebook.com/games/objectifnap/'>Facebook page</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/creativejam2015'>Sources</a>
 """
 [[items]]
 title = "The Village Cool Guys vs Bad Green Monsters"
@@ -47,9 +47,9 @@ thumb = "images/coolguys.png"
 alt = ""
 description = """
 A village management game done during Global Game Jam 2015 in Brussels.
-<br/><a href='https://village-cool-guys.bitballoon.com/'>Play</a>
-<br/><a href='http://globalgamejam.org/2015/games/village-cool-guys-vs-bad-green-monsters'>GGJ entry</a>
-<br/><a href='https://github.com/gogoprog/ggj15'>Sources</a>
+<br/><a target='_blank' href='https://village-cool-guys.bitballoon.com/'>Play</a>
+<br/><a target='_blank' href='http://globalgamejam.org/2015/games/village-cool-guys-vs-bad-green-monsters'>GGJ entry</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/ggj15'>Sources</a>
 """
 [[items]]
 title = "Redneck Galaxy"
@@ -59,8 +59,8 @@ alt = ""
 description = """
 Two redneck farmers trying to survive in a galaxy full of slugs.
 Game done during Monster Game Jam 2014.
-<br/><a href='https://v6p9d9t4.ssl.hwcdn.net/html/26480/index.html'>Play</a>
-<br/><a href='https://github.com/gogoprog/monstergamejam2014'>Sources</a>
+<br/><a target='_blank' href='https://v6p9d9t4.ssl.hwcdn.net/html/26480/index.html'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/monstergamejam2014'>Sources</a>
 """
 [[items]]
 title = "Crappy Bird"
@@ -69,9 +69,9 @@ thumb = "images/crappybird.jpg"
 alt = ""
 description = """
 A quickly-done Flappy Bird clone using LÖVE2D.
-<br/><a href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/windows'>Windows build</a>
-<br/><a href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/osx'>OSX build</a>
-<br/><a href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/love'>.love file</a>
+<br/><a target='_blank' href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/windows'>Windows build</a>
+<br/><a target='_blank' href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/osx'>OSX build</a>
+<br/><a target='_blank' href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/love'>.love file</a>
 """
 [[items]]
 title = "The Bloody Sausage"
@@ -80,8 +80,8 @@ thumb = "images/bloody.png"
 alt = ""
 description = """
 An intense shooter game made during Global Game Jam 2014 in Antwerpen.
-<br/><a href='http://globalgamejam.org/2014/games/bloody-sausage'>GGJ entry</a>
-<br/><a href='https://www.youtube.com/watch?v=s_WQbbIQZ6g'>Video</a>
+<br/><a target='_blank' href='http://globalgamejam.org/2014/games/bloody-sausage'>GGJ entry</a>
+<br/><a target='_blank' href='https://www.youtube.com/watch?v=s_WQbbIQZ6g'>Video</a>
 """
 [[items]]
 title = "Ultimate Care Bear Love Rampage"
@@ -90,8 +90,8 @@ thumb = "images/care.png"
 alt = ""
 description = """
 A 1vs1 race game made during Global Game Jam 2013 in Antwerpen.
-<br/><a href='http://2013.globalgamejam.org/2013/ultimate-care-bear-love-rampage'>GGJ entry</a>
-<br/><a href='https://www.youtube.com/watch?v=CmoNtPJlTA8'>Video</a>
+<br/><a target='_blank' href='http://2013.globalgamejam.org/2013/ultimate-care-bear-love-rampage'>GGJ entry</a>
+<br/><a target='_blank' href='https://www.youtube.com/watch?v=CmoNtPJlTA8'>Video</a>
 """
 [[items]]
 title = "Politieke Chaos"
@@ -100,6 +100,6 @@ thumb = "images/chaos.png"
 alt = ""
 description = """
 A beer-throwing game made during Global Game Jam 2011 in Antwerpen.
-<br/><a href='http://archive.globalgamejam.org/2011/politieke-chaos'>GGJ entry</a>
-<br/><a href='https://www.youtube.com/watch?v=stlo3FySbL8'>Video</a>
+<br/><a target='_blank' href='http://archive.globalgamejam.org/2011/politieke-chaos'>GGJ entry</a>
+<br/><a target='_blank' href='https://www.youtube.com/watch?v=stlo3FySbL8'>Video</a>
 """
