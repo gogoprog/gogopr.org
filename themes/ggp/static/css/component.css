@@ -11,11 +11,11 @@
 	margin: 10px 5px 0 5px;
 	vertical-align: top;
 	height: 250px;
-	outline:dashed 1px;
+	outline:solid 2px black;
 }
 
 .og-grid li:hover {
-	outline:dashed 2px white;
+	outline:solid 2px white;
 }
 
 .og-grid li > a,
