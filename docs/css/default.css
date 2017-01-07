@@ -83,3 +83,12 @@ a:hover {
 	text-align: center;
 	padding: 50px 20px;
 }
+
+header a {
+	display:inline-block;
+	transition: transform 0.2s;
+}
+
+header a:hover {
+	transform: scale(1.2, 1.2);
+}
