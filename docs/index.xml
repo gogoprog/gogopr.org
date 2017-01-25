@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gogopr.org</title>
-    <link>/gogopr.org/index.xml</link>
+    <link>/index.xml</link>
     <description>Recent content on gogopr.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/gogopr.org/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
   </channel>
 </rss>

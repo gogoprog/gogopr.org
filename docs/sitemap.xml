@@ -2,7 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/gogopr.org/</loc>
+    <loc>/</loc>
+    <priority>0</priority>
   </url>
   
 </urlset>
