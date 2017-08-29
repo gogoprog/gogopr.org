@@ -1,4 +1,14 @@
 [[items]]
+title = "Banana Affair"
+image = "images/bananaaffair.png"
+thumb = "images/bananaaffair.png"
+alt = ""
+description = """
+Catch the yellow bananas but not the red ones! Made for the banana jam 2017.
+<br/><a target='_blank' href='https://gogoprog.itch.io/bananaaffair'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/bananajam2017'>Sources</a>
+"""
+[[items]]
 title = "Stray Cat Fever"
 image = "images/straycatfever.png"
 thumb = "images/straycatfever.png"
