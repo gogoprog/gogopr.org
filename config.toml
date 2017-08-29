@@ -14,14 +14,14 @@ publishdir = "docs"
 [params]
     # Meta
     title = "gogopr.org"
-    subtitle = "gogoprog's games portfolio."
+    subtitle = "Non-exhaustive list of games I made in my free time or for game jams."
     author = "Gauthier Billot"
     nickname = "gogoprog"
     description = "gogopr.org"
     keywords = "gogoprog, portfolio, linux, game"
 
     # Body background color
-	bodybgcolor = "#c9c9c9"
+    bodybgcolor = "#c9c9c9"
 
     # Footer text
     footertext = "Made using [Hugo](http://gohugo.io)"
