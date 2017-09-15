@@ -19,6 +19,16 @@ A street-of-rage-like game involving cats done for myfirstgamejam winter 2017.
 <br/><a target='_blank' href='https://github.com/gogoprog/myfirstgamejamwinter2017'>Sources</a>
 """
 [[items]]
+title = "Pastafaria"
+image = "images/pastafaria.png"
+thumb = "images/pastafaria.png"
+alt = ""
+description = """
+Sacrifice people to make tomato sauce for the pasta god!
+Game made for the Fishing Cactus internal gamejam 2016.
+<br/><a target='_blank' href='https://we.tl/pwk8W3PNo4'>Download for Linux and Windows</a>
+"""
+[[items]]
 title = "Fish and Destroy"
 image = "images/fish.png"
 thumb = "images/fish.png"
