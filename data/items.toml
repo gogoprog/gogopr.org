@@ -98,10 +98,8 @@ image = "images/crappybird.jpg"
 thumb = "images/crappybird.jpg"
 alt = ""
 description = """
-A quickly-done Flappy Bird clone using LÖVE2D.
-<br/><a target='_blank' href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/windows'>Windows build</a>
-<br/><a target='_blank' href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/osx'>OSX build</a>
-<br/><a target='_blank' href='https://stackmachine.com/games/992d7c6cbd5e1e205893e20a/download/love'>.love file</a>
+A quickly-done Flappy Bird clone using LÖVE2D v0.9.
+<br/><a target='_blank' href='https://github.com/gogoprog/love-component-system/tree/master/samples/crappybird'>Sources</a>
 """
 [[items]]
 title = "The Bloody Sausage"
