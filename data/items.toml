@@ -1,4 +1,13 @@
 [[items]]
+title = "Super Mario Message"
+image = "images/smm.gif"
+thumb = "images/smm.gif"
+alt = ""
+description = """
+A Super Mario Bros Message service
+<br/><a target='_blank' href='https://github.com/gogoprog/super-mario-message'>Sources</a>
+"""
+[[items]]
 title = "Banana Affair"
 image = "images/bananaaffair.png"
 thumb = "images/bananaaffair.png"
