@@ -1,4 +1,14 @@
 [[items]]
+title = "Extreme Lawn Mowing"
+image = "images/elm.gif"
+thumb = "images/elm.gif"
+alt = ""
+description = """
+Entry for the Actual Adult Games game jam on itch.io.
+<br/><a target='_blank' href='https://gogoprog.itch.io/extreme-lawn-mowing'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/actual-adult-games-2019'>Sources</a>
+"""
+[[items]]
 title = "Super Mario Message"
 image = "images/smm.gif"
 thumb = "images/smm.gif"
