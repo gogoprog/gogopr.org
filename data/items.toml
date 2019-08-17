@@ -1,4 +1,14 @@
 [[items]]
+title = "Damn Night"
+image = "images/dnight.gif"
+thumb = "images/dnight.gif"
+alt = ""
+description = """
+Entry for the LOWREZJAM 2019 game jam on itch.io.
+<br/><a target='_blank' href='https://gogoprog.itch.io/damn-night'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/lowrezjam2019'>Sources</a>
+"""
+[[items]]
 title = "Extreme Lawn Mowing"
 image = "images/elm.gif"
 thumb = "images/elm.gif"
