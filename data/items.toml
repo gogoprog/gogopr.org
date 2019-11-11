@@ -1,4 +1,14 @@
 [[items]]
+title = "Doomlike Map Generator"
+image = "images/doommap.png"
+thumb = "images/doommap.png"
+alt = ""
+description = """
+Entry for the PROCJAM 2019 jam on itch.io.
+<br/><a target='_blank' href='https://gogoprog.itch.io/doomlike-map-generator'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/procjam2019'>Sources</a>
+"""
+[[items]]
 title = "Damn Night"
 image = "images/dnight.gif"
 thumb = "images/dnight.gif"
