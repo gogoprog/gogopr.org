@@ -1,4 +1,14 @@
 [[items]]
+title = "Inverted Pac-Man"
+image = "images/pacman.png"
+thumb = "images/pacman.png"
+alt = ""
+description = """
+A game made after seeing a tweet : "pacman, but you only control the ghosts, all at the same time"
+<br/><a target='_blank' href='https://gogoprog.itch.io/invert-pac-man'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/invert-pacman'>Sources</a>
+"""
+[[items]]
 title = "Doomlike Map Generator"
 image = "images/doommap.png"
 thumb = "images/doommap.png"
