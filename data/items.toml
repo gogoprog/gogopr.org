@@ -1,4 +1,14 @@
 [[items]]
+title = "SHIP2k"
+image = "images/ship.gif"
+thumb = "images/ship.gif"
+alt = ""
+description = """
+A 2047 bytes game made for the 2kPlus Jam
+<br/><a target='_blank' href='https://gogoprog.itch.io/ship2k'>Play</a>
+<br/><a target='_blank' href='https://github.com/gogoprog/2kplus-jam'>Sources</a>
+"""
+[[items]]
 title = "Inverted Pac-Man"
 image = "images/pacman.png"
 thumb = "images/pacman.png"
