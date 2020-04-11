@@ -1,0 +1,4 @@
+-cp deps/terminaljs/src
+-cp src/
+-main Website
+-js build/website.js

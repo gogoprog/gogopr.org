@@ -1,3 +1,2 @@
-all:
-	hugo
-
+build:
+	haxe build.hxml
