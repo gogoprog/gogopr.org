@@ -1,0 +1,3 @@
+[submodule "deps/terminaljs"]
+	path = deps/terminaljs
+	url = https://github.com/gogoprog/terminaljs
