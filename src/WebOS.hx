@@ -7,6 +7,9 @@ class WebOS {
     public var fileSystem:fs.FileSystem;
     public var cwd:fs.FileNode;
 
+    private var history:Array<String> = [];
+    private var historyIndex:Int;
+
     public function new() {
         instance = this;
         initTerminal();
@@ -18,11 +21,11 @@ class WebOS {
     }
 
     public function execute(input:String) {
-        try {
-            var words = input.split(" ");
-            var cmd = words[0];
+        var words = input.split(" ");
+        var cmd = words[0];
 
-            if(cmd.length > 0) {
+        if(cmd.length > 0) {
+            try {
                 var slash = cmd.indexOf("/");
 
                 if(slash == -1) {
@@ -32,9 +35,32 @@ class WebOS {
                 }
 
                 terminal.print("Unknown command: " +  cmd);
+            } catch(e:Dynamic) {
+                terminal.print("<span style='color:red'>Error: " + e + "</span>");
             }
-        } catch(e:Dynamic) {
-            terminal.print("<span style='color:red'>Error: " + e + "</span>");
+
+            history.push(input);
+            historyIndex = history.length;
+        }
+    }
+
+    private function keyDown(e:Dynamic) {
+        if(e.key == "ArrowUp") {
+            historyIndex--;
+
+            if(historyIndex< 0) {
+                historyIndex = 0;
+            }
+
+            terminal.setInput(history[historyIndex]);
+        } else if(e.key == "ArrowDown") {
+            historyIndex++;
+
+            if(historyIndex >= history.length) {
+                historyIndex = history.length - 1;
+            }
+
+            terminal.setInput(history[historyIndex]);
         }
     }
 
@@ -83,6 +109,7 @@ class WebOS {
         terminal.clear();
         execute("welcome");
         terminal.input(execute);
+        terminal.keyDown(keyDown);
     }
 
     private function runFromPath(path, words):Bool {

@@ -170,6 +170,7 @@ Type.createInstance = function(cl,args) {
 	}
 };
 var WebOS = function() {
+	this.history = [];
 	WebOS.instance = this;
 	this.initTerminal();
 };
@@ -181,10 +182,10 @@ WebOS.prototype = {
 		haxe_Timer.delay($bind(this,this.onInit),1500);
 	}
 	,execute: function(input) {
-		try {
-			var words = input.split(" ");
-			var cmd = words[0];
-			if(cmd.length > 0) {
+		var words = input.split(" ");
+		var cmd = words[0];
+		if(cmd.length > 0) {
+			try {
 				var slash = cmd.indexOf("/");
 				if(slash == -1) {
 					if(this.runFromPath("/bin",words) || this.runFromPath("/scripts",words)) {
@@ -192,10 +193,27 @@ WebOS.prototype = {
 					}
 				}
 				this.terminal.print("Unknown command: " + cmd);
+			} catch( e ) {
+				if (e instanceof js__$Boot_HaxeError) e = e.val;
+				this.terminal.print("<span style='color:red'>Error: " + Std.string(e) + "</span>");
 			}
-		} catch( e ) {
-			if (e instanceof js__$Boot_HaxeError) e = e.val;
-			this.terminal.print("<span style='color:red'>Error: " + Std.string(e) + "</span>");
+			this.history.push(input);
+			this.historyIndex = this.history.length;
+		}
+	}
+	,keyDown: function(e) {
+		if(e.key == "ArrowUp") {
+			this.historyIndex--;
+			if(this.historyIndex < 0) {
+				this.historyIndex = 0;
+			}
+			this.terminal.setInput(this.history[this.historyIndex]);
+		} else if(e.key == "ArrowDown") {
+			this.historyIndex++;
+			if(this.historyIndex >= this.history.length) {
+				this.historyIndex = this.history.length - 1;
+			}
+			this.terminal.setInput(this.history[this.historyIndex]);
 		}
 	}
 	,initTerminal: function() {
@@ -240,6 +258,7 @@ WebOS.prototype = {
 		this.terminal.clear();
 		this.execute("welcome");
 		this.terminal.input($bind(this,this.execute));
+		this.terminal.keyDown($bind(this,this.keyDown));
 	}
 	,runFromPath: function(path,words) {
 		var bin = this.fileSystem.getFile(path);
@@ -731,8 +750,24 @@ programs_Help.__name__ = true;
 programs_Help.__super__ = Program;
 programs_Help.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
-		var webos = WebOS.instance;
+		var fs = WebOS.instance.fileSystem;
 		terminal.print("Available commands:");
+		var bin = fs.getFile("/bin");
+		var _g = 0;
+		var _g1 = bin.children;
+		while(_g < _g1.length) {
+			var file = _g1[_g];
+			++_g;
+			terminal.print("  " + file.name);
+		}
+		var scripts = fs.getFile("/scripts");
+		var _g2 = 0;
+		var _g11 = scripts.children;
+		while(_g2 < _g11.length) {
+			var file1 = _g11[_g2];
+			++_g2;
+			terminal.print("  " + file1.name);
+		}
 	}
 });
 var programs_Ls = function() {
@@ -824,12 +859,15 @@ terminaljs_Terminal.initInput = function(terminal) {
 		inputField.focus();
 	};
 	inputField.onkeydown = function(e) {
-		if(e.key == "LeftArrow" || e.key == "UpArrow" || e.key == "RightArrow" || e.key == "DownArrow" || e.key == "Tab") {
+		if(e.key == "ArrowLeft" || e.key == "ArrowUp" || e.key == "ArrowRight" || e.key == "ArrowDown" || e.key == "Tab") {
 			e.preventDefault();
+			if(terminal._keyDownCallback != null) {
+				terminal._keyDownCallback(e);
+			}
 		} else if(e.key != "Enter") {
 			window.setTimeout(function() {
 				terminal._inputLine.textContent = inputField.value;
-			},1);
+			},0);
 		}
 	};
 	inputField.onkeyup = function(e1) {
@@ -863,6 +901,9 @@ terminaljs_Terminal.prototype = {
 		this._callback = callback;
 		terminaljs_Terminal.initInput(this);
 	}
+	,keyDown: function(callback) {
+		this._keyDownCallback = callback;
+	}
 	,clear: function() {
 		this._output.innerHTML = "";
 	}
@@ -893,6 +934,10 @@ terminaljs_Terminal.prototype = {
 	}
 	,blinkCursor: function(value) {
 		this._shouldBlinkCursor = value;
+	}
+	,setInput: function(value) {
+		this._inputField.value = value;
+		this._inputLine.textContent = this._inputField.value;
 	}
 };
 var $_, $fid = 0;
