@@ -170,15 +170,15 @@ Type.createInstance = function(cl,args) {
 	}
 };
 var WebOS = function() {
-	this.loadingItems = 0;
 	WebOS.instance = this;
 	this.initTerminal();
-	this.initFileSystem();
 };
 $hxClasses["WebOS"] = WebOS;
 WebOS.__name__ = true;
 WebOS.prototype = {
 	boot: function() {
+		this.initFileSystem();
+		haxe_Timer.delay($bind(this,this.onInit),1500);
 	}
 	,execute: function(input) {
 		try {
@@ -196,16 +196,6 @@ WebOS.prototype = {
 		} catch( e ) {
 			if (e instanceof js__$Boot_HaxeError) e = e.val;
 			this.terminal.print("<span style='color:red'>Error: " + Std.string(e) + "</span>");
-		}
-	}
-	,increaseLoadingItem: function() {
-		this.loadingItems++;
-	}
-	,decreaseLoadingItem: function() {
-		this.loadingItems--;
-		if(this.loadingItems == 0) {
-			this.terminal.print("System fully loaded.");
-			haxe_Timer.delay($bind(this,this.onInit),1000);
 		}
 	}
 	,initTerminal: function() {
@@ -231,7 +221,7 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/scripts/welcome","static/var/welcome.txt","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
+		var files1 = ["static/scripts/welcome","static/var/foo.txt","static/var/welcome.txt","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
@@ -241,7 +231,7 @@ WebOS.prototype = {
 			var node1 = this.fileSystem.registerFile(endPath,fs_FileType.WebFile);
 			node1.url = file1;
 			if(HxOverrides.substr(endPath,0,8) == "/scripts") {
-				node1.loadContent();
+				node1.getContent();
 			}
 		}
 		this.cwd = this.fileSystem.getFile("/");
@@ -329,15 +319,23 @@ fs_FileNode.prototype = {
 		}
 		return null;
 	}
-	,loadContent: function() {
+	,getContent: function(callback) {
 		var _gthis = this;
+		if(this.data != null) {
+			if(callback != null) {
+				callback(this.data);
+			}
+			return;
+		}
 		var http = new haxe_Http(this.url);
+		http.async = false;
 		http.onData = function(data) {
 			_gthis.data = data;
-			WebOS.instance.decreaseLoadingItem();
+			if(callback != null) {
+				callback(data);
+			}
 		};
 		http.request();
-		WebOS.instance.increaseLoadingItem();
 	}
 	,execute: function(terminal,args) {
 		if(this.type == fs_FileType.WebFile) {
@@ -708,11 +706,10 @@ programs_Cat.__name__ = true;
 programs_Cat.__super__ = Program;
 programs_Cat.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
-		var http = new haxe_Http(args);
-		http.onData = function(data) {
+		var file = WebOS.instance.fileSystem.getFile(args);
+		file.getContent(function(data) {
 			terminal.print(data);
-		};
-		http.request();
+		});
 	}
 });
 var programs_Echo = function() {

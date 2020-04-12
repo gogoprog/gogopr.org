@@ -6,10 +6,9 @@ class Cat extends Program {
     }
 
     override public function run(terminal, args) {
-        var http = new haxe.Http(args);
-        http.onData = function(data:String) {
+        var file = WebOS.instance.fileSystem.getFile(args);
+        file.getContent(function(data) {
             terminal.print(data);
-        }
-        http.request();
+        });
     }
 }

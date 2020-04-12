@@ -1,1 +1,1 @@
-cat static/var/welcome.txt
+cat /var/welcome.txt

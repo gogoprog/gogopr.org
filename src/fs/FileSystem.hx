@@ -61,14 +61,25 @@ class FileNode {
         return null;
     }
 
-    public function loadContent() {
+    public function getContent(?callback:String->Void) {
+        if(data != null) {
+            if(callback != null) {
+                callback(data);
+            }
+
+            return;
+        }
+
         var http = new haxe.Http(url);
+        http.async = false;
         http.onData = function(data:String) {
             this.data = data;
-            WebOS.instance.decreaseLoadingItem();
+
+            if(callback != null) {
+                callback(data);
+            }
         }
         http.request();
-        WebOS.instance.increaseLoadingItem();
     }
 
     public function execute(terminal, args) {

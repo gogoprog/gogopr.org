@@ -7,16 +7,14 @@ class WebOS {
     public var fileSystem:fs.FileSystem;
     public var cwd:fs.FileNode;
 
-
-    private var loadingItems:Int = 0;
-
     public function new() {
         instance = this;
         initTerminal();
-        initFileSystem();
     }
 
     public function boot() {
+        initFileSystem();
+        haxe.Timer.delay(onInit, 1500);
     }
 
     public function execute(input:String) {
@@ -37,19 +35,6 @@ class WebOS {
             }
         } catch(e:Dynamic) {
             terminal.print("<span style='color:red'>Error: " + e + "</span>");
-        }
-    }
-
-    public function increaseLoadingItem() {
-        loadingItems++;
-    }
-
-    public function decreaseLoadingItem() {
-        loadingItems--;
-
-        if(loadingItems == 0) {
-            terminal.print("System fully loaded.");
-            haxe.Timer.delay(onInit, 1000);
         }
     }
 
@@ -87,7 +72,7 @@ class WebOS {
                 node.url = file;
 
                 if(endPath.substr(0, 8) == "/scripts") {
-                    node.loadContent();
+                    node.getContent();
                 }
             }
         }
