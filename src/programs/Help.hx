@@ -9,8 +9,5 @@ class Help extends Program {
         var webos = WebOS.instance;
         terminal.print("Available commands:");
 
-        for(key in webos.executables.keys()) {
-            terminal.print("  " + key);
-        }
     }
 }

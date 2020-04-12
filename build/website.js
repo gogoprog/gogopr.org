@@ -40,18 +40,11 @@ HxOverrides.substr = function(s,pos,len) {
 	}
 	return s.substr(pos,len);
 };
-HxOverrides.iter = function(a) {
-	return { cur : 0, arr : a, hasNext : function() {
-		return this.cur < this.arr.length;
-	}, next : function() {
-		return this.arr[this.cur++];
-	}};
-};
 var Lambda = function() { };
 $hxClasses["Lambda"] = Lambda;
 Lambda.__name__ = true;
 Lambda.exists = function(it,f) {
-	var x = $iterator(it)();
+	var x = it.iterator();
 	while(x.hasNext()) {
 		var x1 = x.next();
 		if(f(x1)) {
@@ -123,6 +116,12 @@ Script.prototype = {
 		}
 	}
 };
+var Std = function() { };
+$hxClasses["Std"] = Std;
+Std.__name__ = true;
+Std.string = function(s) {
+	return js_Boot.__string_rec(s,"");
+};
 var Type = function() { };
 $hxClasses["Type"] = Type;
 Type.__name__ = true;
@@ -172,7 +171,6 @@ Type.createInstance = function(cl,args) {
 };
 var WebOS = function() {
 	this.loadingItems = 0;
-	this.executables = new haxe_ds_StringMap();
 	WebOS.instance = this;
 	this.initTerminal();
 	this.initFileSystem();
@@ -183,17 +181,21 @@ WebOS.prototype = {
 	boot: function() {
 	}
 	,execute: function(input) {
-		var words = input.split(" ");
-		var cmd = words[0];
-		var _this = this.executables;
-		var exe = __map_reserved[cmd] != null ? _this.getReserved(cmd) : _this.h[cmd];
-		if(cmd.length > 0) {
-			if(exe != null) {
-				words.shift();
-				exe.run(this.terminal,words.join(" "));
-			} else {
+		try {
+			var words = input.split(" ");
+			var cmd = words[0];
+			if(cmd.length > 0) {
+				var slash = cmd.indexOf("/");
+				if(slash == -1) {
+					if(this.runFromPath("/bin",words) || this.runFromPath("/scripts",words)) {
+						return;
+					}
+				}
 				this.terminal.print("Unknown command: " + cmd);
 			}
+		} catch( e ) {
+			if (e instanceof js__$Boot_HaxeError) e = e.val;
+			this.terminal.print("<span style='color:red'>Error: " + Std.string(e) + "</span>");
 		}
 	}
 	,increaseLoadingItem: function() {
@@ -217,18 +219,19 @@ WebOS.prototype = {
 	}
 	,initFileSystem: function() {
 		this.fileSystem = new fs_FileSystem();
-		var files = ["src/programs/Help.hx","src/programs/Cat.hx","src/programs/Ls.hx","src/programs/Echo.hx"];
+		var files = ["src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Ls.hx"];
 		var _g = 0;
 		while(_g < files.length) {
 			var file = files[_g];
 			++_g;
 			var name = new haxe_io_Path(file).file;
-			this.terminal.print("Registering program: " + name.toLowerCase());
-			var node = this.fileSystem.registerFile("/bin/" + name,fs_FileType.BuiltinBinary);
+			var lowName = name.toLowerCase();
+			this.terminal.print("Registering program: " + lowName);
+			var node = this.fileSystem.registerFile("/bin/" + lowName,fs_FileType.BuiltinBinary);
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/images/crappybird.jpg","static/images/elm.gif","static/images/smm.gif","static/images/redneck.jpg","static/images/chaos.png","static/images/bananaaffair.png","static/images/pastafaria.png","static/images/care.png","static/images/pacman.png","static/images/neon.webp","static/images/onap.jpg","static/images/ship.gif","static/images/dnight.gif","static/images/blind.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/doommap.png","static/images/chamosqui.png","static/images/fish.png","static/images/bloody.png","static/scripts/welcome","static/var/welcome.txt","static/css/style.css"];
+		var files1 = ["static/scripts/welcome","static/var/welcome.txt","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
@@ -241,11 +244,28 @@ WebOS.prototype = {
 				node1.loadContent();
 			}
 		}
+		this.cwd = this.fileSystem.getFile("/");
 	}
 	,onInit: function() {
 		this.terminal.clear();
 		this.execute("welcome");
 		this.terminal.input($bind(this,this.execute));
+	}
+	,runFromPath: function(path,words) {
+		var bin = this.fileSystem.getFile(path);
+		var cmd = words[0];
+		var _g = 0;
+		var _g1 = bin.children;
+		while(_g < _g1.length) {
+			var file = _g1[_g];
+			++_g;
+			if(file.name == cmd) {
+				words.shift();
+				file.execute(this.terminal,words.join(" "));
+				return true;
+			}
+		}
+		return false;
 	}
 };
 var Website = function() { };
@@ -375,9 +395,6 @@ fs_FileSystem.prototype = {
 		return node;
 	}
 };
-var haxe_IMap = function() { };
-$hxClasses["haxe.IMap"] = haxe_IMap;
-haxe_IMap.__name__ = true;
 var haxe_Http = function(url) {
 	this.url = url;
 	this.headers = new List();
@@ -532,40 +549,6 @@ haxe_Timer.prototype = {
 		this.id = null;
 	}
 	,run: function() {
-	}
-};
-var haxe_ds_StringMap = function() {
-	this.h = { };
-};
-$hxClasses["haxe.ds.StringMap"] = haxe_ds_StringMap;
-haxe_ds_StringMap.__name__ = true;
-haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
-haxe_ds_StringMap.prototype = {
-	getReserved: function(key) {
-		if(this.rh == null) {
-			return null;
-		} else {
-			return this.rh["$" + key];
-		}
-	}
-	,keys: function() {
-		return HxOverrides.iter(this.arrayKeys());
-	}
-	,arrayKeys: function() {
-		var out = [];
-		for( var key in this.h ) {
-		if(this.h.hasOwnProperty(key)) {
-			out.push(key);
-		}
-		}
-		if(this.rh != null) {
-			for( var key in this.rh ) {
-			if(key.charCodeAt(0) == 36) {
-				out.push(key.substr(1));
-			}
-			}
-		}
-		return out;
 	}
 };
 var haxe_io_Path = function(path) {
@@ -753,11 +736,6 @@ programs_Help.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
 		var webos = WebOS.instance;
 		terminal.print("Available commands:");
-		var key = webos.executables.keys();
-		while(key.hasNext()) {
-			var key1 = key.next();
-			terminal.print("  " + key1);
-		}
 	}
 });
 var programs_Ls = function() {
@@ -920,13 +898,11 @@ terminaljs_Terminal.prototype = {
 		this._shouldBlinkCursor = value;
 	}
 };
-function $iterator(o) { if( o instanceof Array ) return function() { return HxOverrides.iter(o); }; return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator; }
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
 $hxClasses["Math"] = Math;
 String.__name__ = true;
 $hxClasses["Array"] = Array;
 Array.__name__ = true;
-var __map_reserved = {};
 Website.main();
 })(typeof exports != "undefined" ? exports : typeof window != "undefined" ? window : typeof self != "undefined" ? self : this);

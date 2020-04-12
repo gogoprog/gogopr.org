@@ -1,8 +1,12 @@
+import fs.FileSystem;
+
 class WebOS {
     static public var instance:WebOS;
 
     public var terminal:terminaljs.Terminal;
     public var fileSystem:fs.FileSystem;
+    public var cwd:fs.FileNode;
+
 
     private var loadingItems:Int = 0;
 
@@ -16,17 +20,23 @@ class WebOS {
     }
 
     public function execute(input:String) {
-        var words = input.split(" ");
-        var cmd = words[0];
-        var exe = executables[cmd];
+        try {
+            var words = input.split(" ");
+            var cmd = words[0];
 
-        if(cmd.length > 0) {
-            if(exe != null) {
-                words.shift();
-                exe.run(terminal, words.join(" "));
-            } else {
+            if(cmd.length > 0) {
+                var slash = cmd.indexOf("/");
+
+                if(slash == -1) {
+                    if(runFromPath("/bin", words) || runFromPath("/scripts", words)) {
+                        return;
+                    }
+                }
+
                 terminal.print("Unknown command: " +  cmd);
             }
+        } catch(e:Dynamic) {
+            terminal.print("<span style='color:red'>Error: " + e + "</span>");
         }
     }
 
@@ -60,8 +70,9 @@ class WebOS {
 
             for(file in files) {
                 var name = new haxe.io.Path(file).file;
-                terminal.print("Registering program: " + name.toLowerCase());
-                var node = fileSystem.registerFile("/bin/" + name, BuiltinBinary);
+                var lowName = name.toLowerCase();
+                terminal.print("Registering program: " + lowName);
+                var node = fileSystem.registerFile("/bin/" + lowName, BuiltinBinary);
                 var pgm:Program = Type.createInstance(Type.resolveClass('programs.${name}'), []);
                 node.executable = pgm;
             }
@@ -80,11 +91,27 @@ class WebOS {
                 }
             }
         }
+        cwd = fileSystem.getFile("/");
     }
 
     private function onInit() {
         terminal.clear();
         execute("welcome");
         terminal.input(execute);
+    }
+
+    private function runFromPath(path, words):Bool {
+        var bin = fileSystem.getFile(path);
+        var cmd = words[0];
+
+        for(file in bin.children) {
+            if(file.name == cmd) {
+                words.shift();
+                file.execute(terminal, words.join(" "));
+                return true;
+            }
+        }
+
+        return false;
     }
 }
