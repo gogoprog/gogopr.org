@@ -9,6 +9,7 @@ function $extend(from, fields) {
 var EReg = function(r,opt) {
 	this.r = new RegExp(r,opt.split("u").join(""));
 };
+EReg.__name__ = true;
 EReg.prototype = {
 	match: function(s) {
 		if(this.r.global) {
@@ -20,7 +21,21 @@ EReg.prototype = {
 	}
 };
 var Executable = function() { };
+Executable.__name__ = true;
 var HxOverrides = function() { };
+HxOverrides.__name__ = true;
+HxOverrides.substr = function(s,pos,len) {
+	if(len == null) {
+		len = s.length;
+	} else if(len < 0) {
+		if(pos == 0) {
+			len = s.length + len;
+		} else {
+			return "";
+		}
+	}
+	return s.substr(pos,len);
+};
 HxOverrides.iter = function(a) {
 	return { cur : 0, arr : a, hasNext : function() {
 		return this.cur < this.arr.length;
@@ -29,6 +44,7 @@ HxOverrides.iter = function(a) {
 	}};
 };
 var Lambda = function() { };
+Lambda.__name__ = true;
 Lambda.exists = function(it,f) {
 	var x = $iterator(it)();
 	while(x.hasNext()) {
@@ -42,6 +58,7 @@ Lambda.exists = function(it,f) {
 var List = function() {
 	this.length = 0;
 };
+List.__name__ = true;
 List.prototype = {
 	iterator: function() {
 		return new _$List_ListIterator(this.h);
@@ -51,9 +68,11 @@ var _$List_ListNode = function(item,next) {
 	this.item = item;
 	this.next = next;
 };
+_$List_ListNode.__name__ = true;
 var _$List_ListIterator = function(head) {
 	this.head = head;
 };
+_$List_ListIterator.__name__ = true;
 _$List_ListIterator.prototype = {
 	hasNext: function() {
 		return this.head != null;
@@ -64,8 +83,12 @@ _$List_ListIterator.prototype = {
 		return val;
 	}
 };
+var Macro = function() { };
+Macro.__name__ = true;
+Math.__name__ = true;
 var Program = function() {
 };
+Program.__name__ = true;
 Program.__interfaces__ = [Executable];
 Program.prototype = {
 	run: function(terminal,args) {
@@ -78,6 +101,7 @@ var Script = function(file) {
 		this.loadFromFile(file);
 	}
 };
+Script.__name__ = true;
 Script.__interfaces__ = [Executable];
 Script.prototype = {
 	run: function(terminal,args) {
@@ -105,8 +129,10 @@ var WebOS = function() {
 	this.executables = new haxe_ds_StringMap();
 	WebOS.instance = this;
 	this.initTerminal();
+	this.initFileSystem();
 	this.initPrograms();
 };
+WebOS.__name__ = true;
 WebOS.prototype = {
 	boot: function() {
 	}
@@ -143,6 +169,19 @@ WebOS.prototype = {
 		window.document.body.appendChild(this.terminal.html);
 		this.terminal.print("Loading...");
 	}
+	,initFileSystem: function() {
+		this.fileSystem = new fs_FileSystem();
+		var files = ["static/images/crappybird.jpg","static/images/elm.gif","static/images/smm.gif","static/images/redneck.jpg","static/images/chaos.png","static/images/bananaaffair.png","static/images/pastafaria.png","static/images/care.png","static/images/pacman.png","static/images/neon.webp","static/images/onap.jpg","static/images/ship.gif","static/images/dnight.gif","static/images/blind.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/doommap.png","static/images/chamosqui.png","static/images/fish.png","static/images/bloody.png","static/scripts/welcome","static/var/welcome.txt","static/css/style.css"];
+		var _g = 0;
+		while(_g < files.length) {
+			var file = files[_g];
+			++_g;
+			this.terminal.print("Registering file: " + file);
+			var endPath = HxOverrides.substr(file,7,null);
+			var node = this.fileSystem.registerFile(endPath,fs_FileType.WebFile);
+			node.url = file;
+		}
+	}
 	,initPrograms: function() {
 		var this1 = this.executables;
 		var v = new programs_Cat();
@@ -169,7 +208,7 @@ WebOS.prototype = {
 			_this2.h["help"] = v2;
 		}
 		var this4 = this.executables;
-		var v3 = new Script("static/bin/welcome");
+		var v3 = new Script("static/scripts/welcome");
 		var _this3 = this4;
 		if(__map_reserved["welcome"] != null) {
 			_this3.setReserved("welcome",v3);
@@ -184,11 +223,37 @@ WebOS.prototype = {
 	}
 };
 var Website = function() { };
+Website.__name__ = true;
 Website.main = function() {
 	var webos = new WebOS();
 	webos.boot();
 };
+var fs_FileType = { __ename__ : true, __constructs__ : ["Directory","BuiltinBinary","WebFile"] };
+fs_FileType.Directory = ["Directory",0];
+fs_FileType.Directory.__enum__ = fs_FileType;
+fs_FileType.BuiltinBinary = ["BuiltinBinary",1];
+fs_FileType.BuiltinBinary.__enum__ = fs_FileType;
+fs_FileType.WebFile = ["WebFile",2];
+fs_FileType.WebFile.__enum__ = fs_FileType;
+var fs_FileNode = function(parent,type,name) {
+	this.name = name;
+	this.parent = parent;
+	this.type = type;
+};
+fs_FileNode.__name__ = true;
+var fs_FileSystem = function() {
+	this.root = new fs_FileNode(null,fs_FileType.Directory,"");
+};
+fs_FileSystem.__name__ = true;
+fs_FileSystem.prototype = {
+	registerFile: function(fullPath,type) {
+		var node = new fs_FileNode(null,type,fullPath);
+		console.log(fullPath);
+		return node;
+	}
+};
 var haxe_IMap = function() { };
+haxe_IMap.__name__ = true;
 var haxe_Http = function(url) {
 	this.url = url;
 	this.headers = new List();
@@ -196,6 +261,7 @@ var haxe_Http = function(url) {
 	this.async = true;
 	this.withCredentials = false;
 };
+haxe_Http.__name__ = true;
 haxe_Http.prototype = {
 	request: function(post) {
 		var me = this;
@@ -322,6 +388,7 @@ var haxe_Timer = function(time_ms) {
 		me.run();
 	},time_ms);
 };
+haxe_Timer.__name__ = true;
 haxe_Timer.delay = function(f,time_ms) {
 	var t = new haxe_Timer(time_ms);
 	t.run = function() {
@@ -344,6 +411,7 @@ haxe_Timer.prototype = {
 var haxe_ds_StringMap = function() {
 	this.h = { };
 };
+haxe_ds_StringMap.__name__ = true;
 haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
 haxe_ds_StringMap.prototype = {
 	setReserved: function(key,value) {
@@ -387,6 +455,7 @@ var js__$Boot_HaxeError = function(val) {
 		Error.captureStackTrace(this,js__$Boot_HaxeError);
 	}
 };
+js__$Boot_HaxeError.__name__ = true;
 js__$Boot_HaxeError.wrap = function(val) {
 	if((val instanceof Error)) {
 		return val;
@@ -397,7 +466,94 @@ js__$Boot_HaxeError.wrap = function(val) {
 js__$Boot_HaxeError.__super__ = Error;
 js__$Boot_HaxeError.prototype = $extend(Error.prototype,{
 });
+var js_Boot = function() { };
+js_Boot.__name__ = true;
+js_Boot.__string_rec = function(o,s) {
+	if(o == null) {
+		return "null";
+	}
+	if(s.length >= 5) {
+		return "<...>";
+	}
+	var t = typeof(o);
+	if(t == "function" && (o.__name__ || o.__ename__)) {
+		t = "object";
+	}
+	switch(t) {
+	case "function":
+		return "<function>";
+	case "object":
+		if(o instanceof Array) {
+			if(o.__enum__) {
+				if(o.length == 2) {
+					return o[0];
+				}
+				var str = o[0] + "(";
+				s += "\t";
+				var _g1 = 2;
+				var _g = o.length;
+				while(_g1 < _g) {
+					var i = _g1++;
+					if(i != 2) {
+						str += "," + js_Boot.__string_rec(o[i],s);
+					} else {
+						str += js_Boot.__string_rec(o[i],s);
+					}
+				}
+				return str + ")";
+			}
+			var l = o.length;
+			var i1;
+			var str1 = "[";
+			s += "\t";
+			var _g11 = 0;
+			var _g2 = l;
+			while(_g11 < _g2) {
+				var i2 = _g11++;
+				str1 += (i2 > 0 ? "," : "") + js_Boot.__string_rec(o[i2],s);
+			}
+			str1 += "]";
+			return str1;
+		}
+		var tostr;
+		try {
+			tostr = o.toString;
+		} catch( e ) {
+			return "???";
+		}
+		if(tostr != null && tostr != Object.toString && typeof(tostr) == "function") {
+			var s2 = o.toString();
+			if(s2 != "[object Object]") {
+				return s2;
+			}
+		}
+		var k = null;
+		var str2 = "{\n";
+		s += "\t";
+		var hasp = o.hasOwnProperty != null;
+		for( var k in o ) {
+		if(hasp && !o.hasOwnProperty(k)) {
+			continue;
+		}
+		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
+			continue;
+		}
+		if(str2.length != 2) {
+			str2 += ", \n";
+		}
+		str2 += s + k + " : " + js_Boot.__string_rec(o[k],s);
+		}
+		s = s.substring(1);
+		str2 += "\n" + s + "}";
+		return str2;
+	case "string":
+		return o;
+	default:
+		return String(o);
+	}
+};
 var js_Browser = function() { };
+js_Browser.__name__ = true;
 js_Browser.createXMLHttpRequest = function() {
 	if(typeof XMLHttpRequest != "undefined") {
 		return new XMLHttpRequest();
@@ -410,6 +566,7 @@ js_Browser.createXMLHttpRequest = function() {
 var programs_Cat = function() {
 	Program.call(this);
 };
+programs_Cat.__name__ = true;
 programs_Cat.__super__ = Program;
 programs_Cat.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
@@ -423,6 +580,7 @@ programs_Cat.prototype = $extend(Program.prototype,{
 var programs_Echo = function() {
 	Program.call(this);
 };
+programs_Echo.__name__ = true;
 programs_Echo.__super__ = Program;
 programs_Echo.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
@@ -432,6 +590,7 @@ programs_Echo.prototype = $extend(Program.prototype,{
 var programs_Help = function() {
 	Program.call(this);
 };
+programs_Help.__name__ = true;
 programs_Help.__super__ = Program;
 programs_Help.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
@@ -484,6 +643,7 @@ var terminaljs_Terminal = $hx_exports["Terminal"] = function(id) {
 	this._cursorBlinkRate = 500;
 	this.setPrompt("$ ");
 };
+terminaljs_Terminal.__name__ = true;
 terminaljs_Terminal.triggerCursor = function(inputField,terminal,blinkRate) {
 	window.setTimeout(function() {
 		if(terminal._shouldBlinkCursor) {
@@ -586,6 +746,8 @@ terminaljs_Terminal.prototype = {
 function $iterator(o) { if( o instanceof Array ) return function() { return HxOverrides.iter(o); }; return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator; }
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
+String.__name__ = true;
+Array.__name__ = true;
 var __map_reserved = {};
 Website.main();
 })(typeof exports != "undefined" ? exports : typeof window != "undefined" ? window : typeof self != "undefined" ? self : this);

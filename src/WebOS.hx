@@ -1,12 +1,14 @@
 class WebOS {
     static public var instance:WebOS;
     public var terminal:terminaljs.Terminal;
+    public var fileSystem:fs.FileSystem;
     public var executables:Map<String, Executable> = new Map();
     private var loadingItems:Int = 0;
 
     public function new() {
         instance = this;
         initTerminal();
+        initFileSystem();
         initPrograms();
     }
 
@@ -41,7 +43,6 @@ class WebOS {
         }
     }
 
-
     private function initTerminal() {
         terminal = new terminaljs.Terminal();
         terminal.setHeight("100%");
@@ -49,14 +50,26 @@ class WebOS {
         terminal.setBackgroundColor("rgba(0,0,0,0.35)");
         terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>]$ ");
         js.Browser.document.body.appendChild(terminal.html);
-        terminal.print("Loading...");
+        terminal.print("Terminal initialized...");
+    }
+
+    private function initFileSystem() {
+        fileSystem = new fs.FileSystem();
+        var files = Macro.getFilePaths("static");
+
+        for(file in files) {
+            terminal.print("Registering file: " + file);
+            var endPath = file.substr(7);
+            var node = fileSystem.registerFile(endPath, WebFile);
+            node.url = file;
+        }
     }
 
     private function initPrograms() {
         executables["cat"] = new programs.Cat();
         executables["echo"] = new programs.Echo();
         executables["help"] = new programs.Help();
-        executables["welcome"] = new Script("static/bin/welcome");
+        executables["welcome"] = new Script("static/scripts/welcome");
     }
 
     private function onInit() {
