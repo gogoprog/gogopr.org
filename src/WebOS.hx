@@ -1,15 +1,15 @@
 class WebOS {
     static public var instance:WebOS;
+
     public var terminal:terminaljs.Terminal;
     public var fileSystem:fs.FileSystem;
-    public var executables:Map<String, Executable> = new Map();
+
     private var loadingItems:Int = 0;
 
     public function new() {
         instance = this;
         initTerminal();
         initFileSystem();
-        initPrograms();
     }
 
     public function boot() {
@@ -55,22 +55,31 @@ class WebOS {
 
     private function initFileSystem() {
         fileSystem = new fs.FileSystem();
-        var files = Macro.getFilePaths("static");
+        {
+            var files = Macro.getFilePaths("src/programs");
 
-        for(file in files) {
-            terminal.print("Registering file: " + file);
-            var endPath = file.substr(7);
-            var node = fileSystem.registerFile(endPath, WebFile);
-            node.url = file;
+            for(file in files) {
+                var name = new haxe.io.Path(file).file;
+                terminal.print("Registering program: " + name.toLowerCase());
+                var node = fileSystem.registerFile("/bin/" + name, BuiltinBinary);
+                var pgm:Program = Type.createInstance(Type.resolveClass('programs.${name}'), []);
+                node.executable = pgm;
+            }
         }
-    }
+        {
+            var files = Macro.getFilePaths("static");
 
-    private function initPrograms() {
-        executables["cat"] = new programs.Cat();
-        executables["echo"] = new programs.Echo();
-        executables["help"] = new programs.Help();
-        executables["ls"] = new programs.Ls();
-        executables["welcome"] = new Script("static/scripts/welcome");
+            for(file in files) {
+                terminal.print("Registering file: " + file);
+                var endPath = file.substr(6);
+                var node = fileSystem.registerFile(endPath, WebFile);
+                node.url = file;
+
+                if(endPath.substr(0, 8) == "/scripts") {
+                    node.loadContent();
+                }
+            }
+        }
     }
 
     private function onInit() {

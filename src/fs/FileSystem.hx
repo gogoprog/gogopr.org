@@ -60,6 +60,28 @@ class FileNode {
 
         return null;
     }
+
+    public function loadContent() {
+        var http = new haxe.Http(url);
+        http.onData = function(data:String) {
+            this.data = data;
+            WebOS.instance.decreaseLoadingItem();
+        }
+        http.request();
+        WebOS.instance.increaseLoadingItem();
+    }
+
+    public function execute(terminal, args) {
+        if(type == WebFile) {
+            if(executable == null) {
+                executable = new Script(data);
+            }
+        }
+
+        if(executable != null) {
+            executable.run(terminal, args);
+        }
+    }
 }
 
 class FileSystem {
@@ -76,12 +98,14 @@ class FileSystem {
         for(i in 0...names.length) {
             var name = names[i];
 
-            if(i < names.length - 1) {
-                parent = parent.getOrCreateChildDirectory(name);
-            } else {
-                var node = parent.getOrCreateChild(name);
-                node.type = type;
-                return node;
+            if(name != "") {
+                if(i < names.length - 1) {
+                    parent = parent.getOrCreateChildDirectory(name);
+                } else {
+                    var node = parent.getOrCreateChild(name);
+                    node.type = type;
+                    return node;
+                }
             }
         }
 
