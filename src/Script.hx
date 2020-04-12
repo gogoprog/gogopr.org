@@ -17,7 +17,9 @@ class Script implements Executable {
         var http = new haxe.Http(file);
         http.onData = function(data:String) {
             lines = data.split("\n");
+            WebOS.instance.decreaseLoadingItem();
         }
         http.request();
+        WebOS.instance.increaseLoadingItem();
     }
 }

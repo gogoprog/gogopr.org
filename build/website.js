@@ -20,9 +20,17 @@ EReg.prototype = {
 	}
 };
 var Executable = function() { };
+var HxOverrides = function() { };
+HxOverrides.iter = function(a) {
+	return { cur : 0, arr : a, hasNext : function() {
+		return this.cur < this.arr.length;
+	}, next : function() {
+		return this.arr[this.cur++];
+	}};
+};
 var Lambda = function() { };
 Lambda.exists = function(it,f) {
-	var x = it.iterator();
+	var x = $iterator(it)();
 	while(x.hasNext()) {
 		var x1 = x.next();
 		if(f(x1)) {
@@ -86,11 +94,14 @@ Script.prototype = {
 		var http = new haxe_Http(file);
 		http.onData = function(data) {
 			_gthis.lines = data.split("\n");
+			WebOS.instance.decreaseLoadingItem();
 		};
 		http.request();
+		WebOS.instance.increaseLoadingItem();
 	}
 };
 var WebOS = function() {
+	this.loadingItems = 0;
 	this.executables = new haxe_ds_StringMap();
 	WebOS.instance = this;
 	this.initTerminal();
@@ -98,7 +109,6 @@ var WebOS = function() {
 };
 WebOS.prototype = {
 	boot: function() {
-		this.welcome();
 	}
 	,execute: function(input) {
 		var words = input.split(" ");
@@ -114,6 +124,16 @@ WebOS.prototype = {
 			}
 		}
 	}
+	,increaseLoadingItem: function() {
+		this.loadingItems++;
+	}
+	,decreaseLoadingItem: function() {
+		this.loadingItems--;
+		if(this.loadingItems == 0) {
+			this.terminal.print("System fully loaded.");
+			haxe_Timer.delay($bind(this,this.onInit),1000);
+		}
+	}
 	,initTerminal: function() {
 		this.terminal = new terminaljs_Terminal();
 		this.terminal.setHeight("100%");
@@ -121,7 +141,7 @@ WebOS.prototype = {
 		this.terminal.setBackgroundColor("rgba(0,0,0,0.35)");
 		this.terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>]$ ");
 		window.document.body.appendChild(this.terminal.html);
-		this.terminal.input($bind(this,this.execute));
+		this.terminal.print("Loading...");
 	}
 	,initPrograms: function() {
 		var this1 = this.executables;
@@ -141,15 +161,26 @@ WebOS.prototype = {
 			_this1.h["echo"] = v1;
 		}
 		var this3 = this.executables;
-		var v2 = new Script("static/bin/welcome");
+		var v2 = new programs_Help();
 		var _this2 = this3;
-		if(__map_reserved["welcome"] != null) {
-			_this2.setReserved("welcome",v2);
+		if(__map_reserved["help"] != null) {
+			_this2.setReserved("help",v2);
 		} else {
-			_this2.h["welcome"] = v2;
+			_this2.h["help"] = v2;
+		}
+		var this4 = this.executables;
+		var v3 = new Script("static/bin/welcome");
+		var _this3 = this4;
+		if(__map_reserved["welcome"] != null) {
+			_this3.setReserved("welcome",v3);
+		} else {
+			_this3.h["welcome"] = v3;
 		}
 	}
-	,welcome: function() {
+	,onInit: function() {
+		this.terminal.clear();
+		this.execute("welcome");
+		this.terminal.input($bind(this,this.execute));
 	}
 };
 var Website = function() { };
@@ -285,6 +316,31 @@ haxe_Http.prototype = {
 	,onStatus: function(status) {
 	}
 };
+var haxe_Timer = function(time_ms) {
+	var me = this;
+	this.id = setInterval(function() {
+		me.run();
+	},time_ms);
+};
+haxe_Timer.delay = function(f,time_ms) {
+	var t = new haxe_Timer(time_ms);
+	t.run = function() {
+		t.stop();
+		f();
+	};
+	return t;
+};
+haxe_Timer.prototype = {
+	stop: function() {
+		if(this.id == null) {
+			return;
+		}
+		clearInterval(this.id);
+		this.id = null;
+	}
+	,run: function() {
+	}
+};
 var haxe_ds_StringMap = function() {
 	this.h = { };
 };
@@ -302,6 +358,25 @@ haxe_ds_StringMap.prototype = {
 		} else {
 			return this.rh["$" + key];
 		}
+	}
+	,keys: function() {
+		return HxOverrides.iter(this.arrayKeys());
+	}
+	,arrayKeys: function() {
+		var out = [];
+		for( var key in this.h ) {
+		if(this.h.hasOwnProperty(key)) {
+			out.push(key);
+		}
+		}
+		if(this.rh != null) {
+			for( var key in this.rh ) {
+			if(key.charCodeAt(0) == 36) {
+				out.push(key.substr(1));
+			}
+			}
+		}
+		return out;
 	}
 };
 var js__$Boot_HaxeError = function(val) {
@@ -352,6 +427,21 @@ programs_Echo.__super__ = Program;
 programs_Echo.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
 		terminal.print(args);
+	}
+});
+var programs_Help = function() {
+	Program.call(this);
+};
+programs_Help.__super__ = Program;
+programs_Help.prototype = $extend(Program.prototype,{
+	run: function(terminal,args) {
+		var webos = WebOS.instance;
+		terminal.print("Available commands:");
+		var key = webos.executables.keys();
+		while(key.hasNext()) {
+			var key1 = key.next();
+			terminal.print("  " + key1);
+		}
 	}
 });
 var terminaljs_Terminal = $hx_exports["Terminal"] = function(id) {
@@ -493,6 +583,7 @@ terminaljs_Terminal.prototype = {
 		this._shouldBlinkCursor = value;
 	}
 };
+function $iterator(o) { if( o instanceof Array ) return function() { return HxOverrides.iter(o); }; return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator; }
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
 var __map_reserved = {};

@@ -1,7 +1,8 @@
 class WebOS {
     static public var instance:WebOS;
-    private var terminal:terminaljs.Terminal;
-    private var executables:Map<String, Executable> = new Map();
+    public var terminal:terminaljs.Terminal;
+    public var executables:Map<String, Executable> = new Map();
+    private var loadingItems:Int = 0;
 
     public function new() {
         instance = this;
@@ -10,7 +11,6 @@ class WebOS {
     }
 
     public function boot() {
-        welcome();
     }
 
     public function execute(input:String) {
@@ -28,6 +28,20 @@ class WebOS {
         }
     }
 
+    public function increaseLoadingItem() {
+        loadingItems++;
+    }
+
+    public function decreaseLoadingItem() {
+        loadingItems--;
+
+        if(loadingItems == 0) {
+            terminal.print("System fully loaded.");
+            haxe.Timer.delay(onInit, 1000);
+        }
+    }
+
+
     private function initTerminal() {
         terminal = new terminaljs.Terminal();
         terminal.setHeight("100%");
@@ -35,15 +49,19 @@ class WebOS {
         terminal.setBackgroundColor("rgba(0,0,0,0.35)");
         terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>]$ ");
         js.Browser.document.body.appendChild(terminal.html);
-        terminal.input(execute);
+        terminal.print("Loading...");
     }
 
     private function initPrograms() {
         executables["cat"] = new programs.Cat();
         executables["echo"] = new programs.Echo();
+        executables["help"] = new programs.Help();
         executables["welcome"] = new Script("static/bin/welcome");
     }
 
-    private function welcome() {
+    private function onInit() {
+        terminal.clear();
+        execute("welcome");
+        terminal.input(execute);
     }
 }
