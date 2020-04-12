@@ -167,7 +167,7 @@ WebOS.prototype = {
 		this.terminal.setBackgroundColor("rgba(0,0,0,0.35)");
 		this.terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>]$ ");
 		window.document.body.appendChild(this.terminal.html);
-		this.terminal.print("Loading...");
+		this.terminal.print("Terminal initialized...");
 	}
 	,initFileSystem: function() {
 		this.fileSystem = new fs_FileSystem();
@@ -208,12 +208,20 @@ WebOS.prototype = {
 			_this2.h["help"] = v2;
 		}
 		var this4 = this.executables;
-		var v3 = new Script("static/scripts/welcome");
+		var v3 = new programs_Ls();
 		var _this3 = this4;
-		if(__map_reserved["welcome"] != null) {
-			_this3.setReserved("welcome",v3);
+		if(__map_reserved["ls"] != null) {
+			_this3.setReserved("ls",v3);
 		} else {
-			_this3.h["welcome"] = v3;
+			_this3.h["ls"] = v3;
+		}
+		var this5 = this.executables;
+		var v4 = new Script("static/scripts/welcome");
+		var _this4 = this5;
+		if(__map_reserved["welcome"] != null) {
+			_this4.setReserved("welcome",v4);
+		} else {
+			_this4.h["welcome"] = v4;
 		}
 	}
 	,onInit: function() {
@@ -228,12 +236,14 @@ Website.main = function() {
 	var webos = new WebOS();
 	webos.boot();
 };
-var fs_FileType = { __ename__ : true, __constructs__ : ["Directory","BuiltinBinary","WebFile"] };
-fs_FileType.Directory = ["Directory",0];
+var fs_FileType = { __ename__ : true, __constructs__ : ["Unset","Directory","BuiltinBinary","WebFile"] };
+fs_FileType.Unset = ["Unset",0];
+fs_FileType.Unset.__enum__ = fs_FileType;
+fs_FileType.Directory = ["Directory",1];
 fs_FileType.Directory.__enum__ = fs_FileType;
-fs_FileType.BuiltinBinary = ["BuiltinBinary",1];
+fs_FileType.BuiltinBinary = ["BuiltinBinary",2];
 fs_FileType.BuiltinBinary.__enum__ = fs_FileType;
-fs_FileType.WebFile = ["WebFile",2];
+fs_FileType.WebFile = ["WebFile",3];
 fs_FileType.WebFile.__enum__ = fs_FileType;
 var fs_FileNode = function(parent,type,name) {
 	this.name = name;
@@ -241,14 +251,84 @@ var fs_FileNode = function(parent,type,name) {
 	this.type = type;
 };
 fs_FileNode.__name__ = true;
+fs_FileNode.prototype = {
+	setDirectory: function() {
+		this.type = fs_FileType.Directory;
+		if(this.children == null) {
+			this.children = [];
+		}
+	}
+	,getOrCreateChild: function(name) {
+		var _g = 0;
+		var _g1 = this.children;
+		while(_g < _g1.length) {
+			var child = _g1[_g];
+			++_g;
+			if(child.name == name) {
+				return child;
+			}
+		}
+		var node = new fs_FileNode(this,fs_FileType.Unset,name);
+		this.children.push(node);
+		return node;
+	}
+	,getOrCreateChildDirectory: function(name) {
+		var node = this.getOrCreateChild(name);
+		node.setDirectory();
+		return node;
+	}
+	,getChild: function(name) {
+		var _g = 0;
+		var _g1 = this.children;
+		while(_g < _g1.length) {
+			var child = _g1[_g];
+			++_g;
+			if(child.name == name) {
+				return child;
+			}
+		}
+		return null;
+	}
+};
 var fs_FileSystem = function() {
 	this.root = new fs_FileNode(null,fs_FileType.Directory,"");
+	this.root.setDirectory();
 };
 fs_FileSystem.__name__ = true;
 fs_FileSystem.prototype = {
 	registerFile: function(fullPath,type) {
-		var node = new fs_FileNode(null,type,fullPath);
-		console.log(fullPath);
+		var names = fullPath.split("/");
+		var parent = this.root;
+		var _g1 = 0;
+		var _g = names.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var name = names[i];
+			if(i < names.length - 1) {
+				parent = parent.getOrCreateChildDirectory(name);
+			} else {
+				var node = parent.getOrCreateChild(name);
+				node.type = type;
+				return node;
+			}
+		}
+		return null;
+	}
+	,getFile: function(fullPath) {
+		var names = fullPath.split("/");
+		var node = this.root;
+		var _g1 = 0;
+		var _g = names.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var name = names[i];
+			if(name != "") {
+				node = node.getChild(name);
+				if(node == null) {
+					return null;
+				}
+			}
+		}
 		return node;
 	}
 };
@@ -600,6 +680,24 @@ programs_Help.prototype = $extend(Program.prototype,{
 		while(key.hasNext()) {
 			var key1 = key.next();
 			terminal.print("  " + key1);
+		}
+	}
+});
+var programs_Ls = function() {
+	Program.call(this);
+};
+programs_Ls.__name__ = true;
+programs_Ls.__super__ = Program;
+programs_Ls.prototype = $extend(Program.prototype,{
+	run: function(terminal,args) {
+		var fs = WebOS.instance.fileSystem;
+		var f = fs.getFile(args);
+		var _g = 0;
+		var _g1 = f.children;
+		while(_g < _g1.length) {
+			var child = _g1[_g];
+			++_g;
+			terminal.print(child.name);
 		}
 	}
 });

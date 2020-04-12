@@ -69,6 +69,7 @@ class WebOS {
         executables["cat"] = new programs.Cat();
         executables["echo"] = new programs.Echo();
         executables["help"] = new programs.Help();
+        executables["ls"] = new programs.Ls();
         executables["welcome"] = new Script("static/scripts/welcome");
     }
 
