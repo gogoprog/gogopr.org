@@ -239,7 +239,7 @@ WebOS.prototype = {
 	}
 	,initFileSystem: function() {
 		this.fileSystem = new fs_FileSystem();
-		var files = ["src/programs/Cd.hx","src/programs/Help.hx","src/programs/Cat.hx","src/programs/Ls.hx","src/programs/Clear.hx","src/programs/Echo.hx"];
+		var files = ["src/programs/Clear.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx"];
 		var _g = 0;
 		while(_g < files.length) {
 			var file = files[_g];
@@ -251,18 +251,27 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/images/crappybird.jpg","static/images/elm.gif","static/images/smm.gif","static/images/redneck.jpg","static/images/chaos.png","static/images/bananaaffair.png","static/images/pastafaria.png","static/images/care.png","static/images/pacman.png","static/images/neon.webp","static/images/onap.jpg","static/images/ship.gif","static/images/dnight.gif","static/images/blind.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/doommap.png","static/images/chamosqui.png","static/images/fish.png","static/images/bloody.png","static/scripts/welcome","static/var/games/items.toml","static/var/welcome.txt","static/var/foo.txt","static/css/style.css"];
+		var files1 = ["static/scripts/welcome","static/var/foo.txt","static/var/welcome.txt","static/var/games/items.toml","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
 			++_g1;
 			this.terminal.print("Registering file: " + file1);
-			var endPath = HxOverrides.substr(file1,6,null);
+			var endPath = "/var/" + HxOverrides.substr(file1,6,null);
 			var node1 = this.fileSystem.registerFile(endPath,fs_FileType.WebFile);
 			node1.url = file1;
 			if(HxOverrides.substr(endPath,0,8) == "/scripts") {
 				node1.getContent();
 			}
+		}
+		var files2 = ["src/programs/Clear.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx","src/WebOS.hx","src/fs/FileSystem.hx","src/Executable.hx","src/Script.hx","src/Website.hx","src/Macro.hx","src/Program.hx"];
+		var _g2 = 0;
+		while(_g2 < files2.length) {
+			var file2 = files2[_g2];
+			++_g2;
+			this.terminal.print("Registering file: " + file2);
+			var node2 = this.fileSystem.registerFile(file2,fs_FileType.WebFile);
+			node2.url = file2;
 		}
 		this.cwd = this.fileSystem.getFile("/");
 	}

@@ -117,6 +117,15 @@ class WebOS {
                 }
             }
         }
+        {
+            var files = Macro.getFilePaths("src");
+
+            for(file in files) {
+                terminal.print("Registering file: " + file);
+                var node = fileSystem.registerFile(file, WebFile);
+                node.url = file;
+            }
+        }
         cwd = fileSystem.getFile("/");
     }
 
