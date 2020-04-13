@@ -17,6 +17,7 @@ class WebOS {
 
     public function boot() {
         initFileSystem();
+        terminal.print("WebOS Initialization completed.");
         haxe.Timer.delay(onInit, 500);
     }
 
@@ -131,8 +132,7 @@ class WebOS {
 
     private function onInit() {
         updatePrompt();
-        terminal.clear();
-        execute("welcome");
+        execute("startup");
         terminal.input(execute);
         terminal.keyDown(keyDown);
     }

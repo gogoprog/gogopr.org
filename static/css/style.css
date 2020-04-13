@@ -13,11 +13,26 @@ body {
   background-position: center;
 }
 
-
 .Terminal {
   position: fixed;
   left: 0;
   top: 0;
   text-shadow: 0 0 10px #fff, 0 0 20px #fff;
   white-space: pre;
+}
+
+.games {
+  max-width: 100%;
+  white-space: normal;
+}
+
+.games>div {
+  display: inline-block;
+}
+
+.games>div>div {
+  width: 148px;
+  height: 148px;
+  background-size: cover;
+  margin: 4px;
 }

@@ -6,7 +6,6 @@ class Ls extends Program {
     }
 
     override public function run(terminal, args) {
-        var fs = WebOS.instance.fileSystem;
         var f = WebOS.instance.resolveFile(args);
 
         for(child in f.children) {

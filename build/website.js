@@ -179,6 +179,7 @@ WebOS.__name__ = true;
 WebOS.prototype = {
 	boot: function() {
 		this.initFileSystem();
+		this.terminal.print("WebOS Initialization completed.");
 		haxe_Timer.delay($bind(this,this.onInit),500);
 	}
 	,execute: function(input) {
@@ -239,7 +240,7 @@ WebOS.prototype = {
 	}
 	,initFileSystem: function() {
 		this.fileSystem = new fs_FileSystem();
-		var files = ["src/programs/Clear.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx"];
+		var files = ["src/programs/Clear.hx","src/programs/Games.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx"];
 		var _g = 0;
 		while(_g < files.length) {
 			var file = files[_g];
@@ -251,20 +252,20 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/scripts/welcome","static/var/foo.txt","static/var/welcome.txt","static/var/games/items.toml","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
+		var files1 = ["static/scripts/startup","static/var/foo.txt","static/var/welcome.txt","static/var/games/items.toml","static/var/games/items.json","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
 			++_g1;
 			this.terminal.print("Registering file: " + file1);
-			var endPath = "/var/" + HxOverrides.substr(file1,6,null);
+			var endPath = HxOverrides.substr(file1,6,null);
 			var node1 = this.fileSystem.registerFile(endPath,fs_FileType.WebFile);
 			node1.url = file1;
 			if(HxOverrides.substr(endPath,0,8) == "/scripts") {
 				node1.getContent();
 			}
 		}
-		var files2 = ["src/programs/Clear.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx","src/WebOS.hx","src/fs/FileSystem.hx","src/Executable.hx","src/Script.hx","src/Website.hx","src/Macro.hx","src/Program.hx"];
+		var files2 = ["src/programs/Clear.hx","src/programs/Games.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx","src/WebOS.hx","src/fs/FileSystem.hx","src/Executable.hx","src/Script.hx","src/Website.hx","src/Macro.hx","src/Program.hx"];
 		var _g2 = 0;
 		while(_g2 < files2.length) {
 			var file2 = files2[_g2];
@@ -277,8 +278,7 @@ WebOS.prototype = {
 	}
 	,onInit: function() {
 		this.updatePrompt();
-		this.terminal.clear();
-		this.execute("welcome");
+		this.execute("startup");
 		this.terminal.input($bind(this,this.execute));
 		this.terminal.keyDown($bind(this,this.keyDown));
 	}
@@ -806,6 +806,39 @@ programs_Echo.prototype = $extend(Program.prototype,{
 		terminal.print(args);
 	}
 });
+var programs_Games = function() {
+	Program.call(this);
+};
+$hxClasses["programs.Games"] = programs_Games;
+programs_Games.__name__ = true;
+programs_Games.__super__ = Program;
+programs_Games.prototype = $extend(Program.prototype,{
+	run: function(terminal,args) {
+		var f = WebOS.instance.resolveFile("/var/games/items.json");
+		f.getContent();
+		var data = JSON.parse(f.data);
+		var container = window.document.createElement("div");
+		container.className = "games";
+		var items = data.items;
+		var _g = 0;
+		while(_g < items.length) {
+			var item = [items[_g]];
+			++_g;
+			var el = window.document.createElement("div");
+			var img = window.document.createElement("div");
+			img.style.backgroundImage = "url(static/" + Std.string(item[0].image) + ")";
+			el.appendChild(img);
+			container.appendChild(el);
+			img.onclick = (function(item1) {
+				return function() {
+					terminal.print(item1[0].title);
+				};
+			})(item);
+		}
+		terminal.print("Non-exhaustive list of games I made in my free time or for game jams:");
+		terminal.append(container);
+	}
+});
 var programs_Help = function() {
 	Program.call(this);
 };
@@ -842,7 +875,6 @@ programs_Ls.__name__ = true;
 programs_Ls.__super__ = Program;
 programs_Ls.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
-		var fs = WebOS.instance.fileSystem;
 		var f = WebOS.instance.resolveFile(args);
 		var _g = 0;
 		var _g1 = f.children;

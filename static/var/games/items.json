@@ -1,0 +1,137 @@
+{
+  "items": [
+    {
+      "alt": "",
+      "description": "A 2047 bytes game made for the 2kPlus Jam\n<br/><a target='_blank' href='https://gogoprog.itch.io/ship2k'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/2kplus-jam'>Sources</a>\n",
+      "image": "images/ship.gif",
+      "thumb": "images/ship.gif",
+      "title": "SHIP2k"
+    },
+    {
+      "alt": "",
+      "description": "A game made after seeing a tweet : \"pacman, but you only control the ghosts, all at the same time\"\n<br/><a target='_blank' href='https://gogoprog.itch.io/invert-pac-man'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/invert-pacman'>Sources</a>\n",
+      "image": "images/pacman.png",
+      "thumb": "images/pacman.png",
+      "title": "Inverted Pac-Man"
+    },
+    {
+      "alt": "",
+      "description": "Entry for the PROCJAM 2019 jam on itch.io.\n<br/><a target='_blank' href='https://gogoprog.itch.io/doomlike-map-generator'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/procjam2019'>Sources</a>\n",
+      "image": "images/doommap.png",
+      "thumb": "images/doommap.png",
+      "title": "Doomlike Map Generator"
+    },
+    {
+      "alt": "",
+      "description": "Entry for the LOWREZJAM 2019 game jam on itch.io.\n<br/><a target='_blank' href='https://gogoprog.itch.io/damn-night'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/lowrezjam2019'>Sources</a>\n",
+      "image": "images/dnight.gif",
+      "thumb": "images/dnight.gif",
+      "title": "Damn Night"
+    },
+    {
+      "alt": "",
+      "description": "Entry for the Actual Adult Games game jam on itch.io.\n<br/><a target='_blank' href='https://gogoprog.itch.io/extreme-lawn-mowing'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/actual-adult-games-2019'>Sources</a>\n",
+      "image": "images/elm.gif",
+      "thumb": "images/elm.gif",
+      "title": "Extreme Lawn Mowing"
+    },
+    {
+      "alt": "",
+      "description": "A Super Mario Bros Message service\n<br/><a target='_blank' href='https://github.com/gogoprog/super-mario-message'>Sources</a>\n",
+      "image": "images/smm.gif",
+      "thumb": "images/smm.gif",
+      "title": "Super Mario Message"
+    },
+    {
+      "alt": "",
+      "description": "Catch the yellow bananas but not the red ones! Made for the banana jam 2017.\n<br/><a target='_blank' href='https://gogoprog.itch.io/bananaaffair'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/bananajam2017'>Sources</a>\n",
+      "image": "images/bananaaffair.png",
+      "thumb": "images/bananaaffair.png",
+      "title": "Banana Affair"
+    },
+    {
+      "alt": "",
+      "description": "A street-of-rage-like game involving cats done for myfirstgamejam winter 2017.\n<br/><a target='_blank' href='https://gogoprog.itch.io/stray-cat-fever'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/myfirstgamejamwinter2017'>Sources</a>\n",
+      "image": "images/straycatfever.png",
+      "thumb": "images/straycatfever.png",
+      "title": "Stray Cat Fever"
+    },
+    {
+      "alt": "",
+      "description": "Sacrifice people to make tomato sauce for the pasta god!\nGame made for the Fishing Cactus internal gamejam 2016.\n<br/><a target='_blank' href='https://we.tl/pwk8W3PNo4'>Download for Linux and Windows</a>\n",
+      "image": "images/pastafaria.png",
+      "thumb": "images/pastafaria.png",
+      "title": "Pastafaria"
+    },
+    {
+      "alt": "",
+      "description": "A RTS game made for the fishing jam 2.\n<br/><a target='_blank' href='https://gogoprog.itch.io/fish-and-destroy'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/fishingjam2016'>Sources</a>\n",
+      "image": "images/fish.png",
+      "thumb": "images/fish.png",
+      "title": "Fish and Destroy"
+    },
+    {
+      "alt": "",
+      "description": "Game done for the citysimjam2016.\n<br/><a target='_blank' href='http://blinddelivery.bitballoon.com/'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/citysimjam2016'>Sources</a>\n",
+      "image": "images/blind.png",
+      "thumb": "images/blind.png",
+      "title": "Blind Delivery"
+    },
+    {
+      "alt": "",
+      "description": "Feed the hungry chameleon!\nGame done for the lowrezjam2016.\n<br/><a target='_blank' href='https://gogoprog.itch.io/chamosqui'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/lowrezjam2016'>Sources</a>\n",
+      "image": "images/chamosqui.png",
+      "thumb": "images/chamosqui.png",
+      "title": "Chamosqui"
+    },
+    {
+      "alt": "ONAP",
+      "description": "A labyrinth game with a blind mole. Made during the CreativeJam 2015 in Mons.\n<br/><a target='_blank' href='https://onap.bitballoon.com/'>Play</a>\n<br/><a target='_blank' href='https://www.facebook.com/games/objectifnap/'>Facebook page</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/creativejam2015'>Sources</a>\n",
+      "image": "images/onap.jpg",
+      "thumb": "images/onap.jpg",
+      "title": "Objectif: Niquer Au Plutaupe"
+    },
+    {
+      "alt": "",
+      "description": "A village management game done during Global Game Jam 2015 in Brussels.\n<br/><a target='_blank' href='https://village-cool-guys.bitballoon.com/'>Play</a>\n<br/><a target='_blank' href='http://globalgamejam.org/2015/games/village-cool-guys-vs-bad-green-monsters'>GGJ entry</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/ggj15'>Sources</a>\n",
+      "image": "images/coolguys.png",
+      "thumb": "images/coolguys.png",
+      "title": "The Village Cool Guys vs Bad Green Monsters"
+    },
+    {
+      "alt": "",
+      "description": "Two redneck farmers trying to survive in a galaxy full of slugs.\nGame done during Monster Game Jam 2014.\n<br/><a target='_blank' href='https://v6p9d9t4.ssl.hwcdn.net/html/26480/index.html'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/monstergamejam2014'>Sources</a>\n",
+      "image": "images/redneck.jpg",
+      "thumb": "images/redneck.jpg",
+      "title": "Redneck Galaxy"
+    },
+    {
+      "alt": "",
+      "description": "A quickly-done Flappy Bird clone using LÖVE2D v0.9.\n<br/><a target='_blank' href='https://github.com/gogoprog/love-component-system/tree/master/samples/crappybird'>Sources</a>\n",
+      "image": "images/crappybird.jpg",
+      "thumb": "images/crappybird.jpg",
+      "title": "Crappy Bird"
+    },
+    {
+      "alt": "",
+      "description": "An intense shooter game made during Global Game Jam 2014 in Antwerpen.\n<br/><a target='_blank' href='http://globalgamejam.org/2014/games/bloody-sausage'>GGJ entry</a>\n<br/><a target='_blank' href='https://www.youtube.com/watch?v=s_WQbbIQZ6g'>Video</a>\n",
+      "image": "images/bloody.png",
+      "thumb": "images/bloody.png",
+      "title": "The Bloody Sausage"
+    },
+    {
+      "alt": "",
+      "description": "A 1vs1 race game made during Global Game Jam 2013 in Antwerpen.\n<br/><a target='_blank' href='http://2013.globalgamejam.org/2013/ultimate-care-bear-love-rampage'>GGJ entry</a>\n<br/><a target='_blank' href='https://www.youtube.com/watch?v=CmoNtPJlTA8'>Video</a>\n",
+      "image": "images/care.png",
+      "thumb": "images/care.png",
+      "title": "Ultimate Care Bear Love Rampage"
+    },
+    {
+      "alt": "",
+      "description": "A beer-throwing game made during Global Game Jam 2011 in Antwerpen.\n<br/><a target='_blank' href='http://archive.globalgamejam.org/2011/politieke-chaos'>GGJ entry</a>\n<br/><a target='_blank' href='https://www.youtube.com/watch?v=stlo3FySbL8'>Video</a>\n",
+      "image": "images/chaos.png",
+      "thumb": "images/chaos.png",
+      "title": "Politieke Chaos"
+    }
+  ]
+}
