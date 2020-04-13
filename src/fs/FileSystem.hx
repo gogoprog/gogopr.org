@@ -93,6 +93,18 @@ class FileNode {
             executable.run(terminal, args);
         }
     }
+
+    public function getFullPath():String {
+        var result = name;
+        var node = parent;
+
+        while(node != null) {
+            result = node.name + "/" + result;
+            node = node.parent;
+        }
+
+        return result;
+    }
 }
 
 class FileSystem {
@@ -130,8 +142,12 @@ class FileSystem {
         for(i in 0...names.length) {
             var name = names[i];
 
-            if(name != "") {
-                node = node.getChild(name);
+            if(name != "" && name != ".") {
+                if(name == "..") {
+                    node = node.parent;
+                } else {
+                    node = node.getChild(name);
+                }
 
                 if(node == null) {
                     return null;

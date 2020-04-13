@@ -179,12 +179,14 @@ WebOS.__name__ = true;
 WebOS.prototype = {
 	boot: function() {
 		this.initFileSystem();
-		haxe_Timer.delay($bind(this,this.onInit),1500);
+		haxe_Timer.delay($bind(this,this.onInit),500);
 	}
 	,execute: function(input) {
 		var words = input.split(" ");
 		var cmd = words[0];
 		if(cmd.length > 0) {
+			this.history.push(input);
+			this.historyIndex = this.history.length;
 			try {
 				var slash = cmd.indexOf("/");
 				if(slash == -1) {
@@ -197,8 +199,19 @@ WebOS.prototype = {
 				if (e instanceof js__$Boot_HaxeError) e = e.val;
 				this.terminal.print("<span style='color:red'>Error: " + Std.string(e) + "</span>");
 			}
-			this.history.push(input);
-			this.historyIndex = this.history.length;
+		}
+	}
+	,updatePrompt: function() {
+		this.terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>:" + this.cwd.getFullPath() + "/]$ ");
+	}
+	,resolveFile: function(input) {
+		if(input == null || input == "") {
+			return this.cwd;
+		}
+		if(input.charAt(0) == "/") {
+			return this.fileSystem.getFile(input);
+		} else {
+			return this.fileSystem.getFile(this.cwd.getFullPath() + "/" + input);
 		}
 	}
 	,keyDown: function(e) {
@@ -221,13 +234,12 @@ WebOS.prototype = {
 		this.terminal.setHeight("100%");
 		this.terminal.setWidth("100%");
 		this.terminal.setBackgroundColor("rgba(0,0,0,0.35)");
-		this.terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>]$ ");
 		window.document.body.appendChild(this.terminal.html);
 		this.terminal.print("Terminal initialized...");
 	}
 	,initFileSystem: function() {
 		this.fileSystem = new fs_FileSystem();
-		var files = ["src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Ls.hx"];
+		var files = ["src/programs/Cd.hx","src/programs/Help.hx","src/programs/Cat.hx","src/programs/Ls.hx","src/programs/Clear.hx","src/programs/Echo.hx"];
 		var _g = 0;
 		while(_g < files.length) {
 			var file = files[_g];
@@ -239,7 +251,7 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/scripts/welcome","static/var/foo.txt","static/var/welcome.txt","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
+		var files1 = ["static/images/crappybird.jpg","static/images/elm.gif","static/images/smm.gif","static/images/redneck.jpg","static/images/chaos.png","static/images/bananaaffair.png","static/images/pastafaria.png","static/images/care.png","static/images/pacman.png","static/images/neon.webp","static/images/onap.jpg","static/images/ship.gif","static/images/dnight.gif","static/images/blind.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/doommap.png","static/images/chamosqui.png","static/images/fish.png","static/images/bloody.png","static/scripts/welcome","static/var/games/items.toml","static/var/welcome.txt","static/var/foo.txt","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
@@ -255,6 +267,7 @@ WebOS.prototype = {
 		this.cwd = this.fileSystem.getFile("/");
 	}
 	,onInit: function() {
+		this.updatePrompt();
 		this.terminal.clear();
 		this.execute("welcome");
 		this.terminal.input($bind(this,this.execute));
@@ -366,6 +379,15 @@ fs_FileNode.prototype = {
 			this.executable.run(terminal,args);
 		}
 	}
+	,getFullPath: function() {
+		var result = this.name;
+		var node = this.parent;
+		while(node != null) {
+			result = node.name + "/" + result;
+			node = node.parent;
+		}
+		return result;
+	}
 };
 var fs_FileSystem = function() {
 	this.root = new fs_FileNode(null,fs_FileType.Directory,"");
@@ -402,8 +424,12 @@ fs_FileSystem.prototype = {
 		while(_g1 < _g) {
 			var i = _g1++;
 			var name = names[i];
-			if(name != "") {
-				node = node.getChild(name);
+			if(name != "" && name != ".") {
+				if(name == "..") {
+					node = node.parent;
+				} else {
+					node = node.getChild(name);
+				}
 				if(node == null) {
 					return null;
 				}
@@ -725,10 +751,39 @@ programs_Cat.__name__ = true;
 programs_Cat.__super__ = Program;
 programs_Cat.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
-		var file = WebOS.instance.fileSystem.getFile(args);
+		var file = WebOS.instance.resolveFile(args);
 		file.getContent(function(data) {
 			terminal.print(data);
 		});
+	}
+});
+var programs_Cd = function() {
+	Program.call(this);
+};
+$hxClasses["programs.Cd"] = programs_Cd;
+programs_Cd.__name__ = true;
+programs_Cd.__super__ = Program;
+programs_Cd.prototype = $extend(Program.prototype,{
+	run: function(terminal,args) {
+		var os = WebOS.instance;
+		var file = os.resolveFile(args);
+		if(file != null && file.type == fs_FileType.Directory) {
+			os.cwd = file;
+			os.updatePrompt();
+		} else {
+			terminal.print("No such directory");
+		}
+	}
+});
+var programs_Clear = function() {
+	Program.call(this);
+};
+$hxClasses["programs.Clear"] = programs_Clear;
+programs_Clear.__name__ = true;
+programs_Clear.__super__ = Program;
+programs_Clear.prototype = $extend(Program.prototype,{
+	run: function(terminal,args) {
+		terminal.clear();
 	}
 });
 var programs_Echo = function() {
@@ -779,7 +834,7 @@ programs_Ls.__super__ = Program;
 programs_Ls.prototype = $extend(Program.prototype,{
 	run: function(terminal,args) {
 		var fs = WebOS.instance.fileSystem;
-		var f = fs.getFile(args);
+		var f = WebOS.instance.resolveFile(args);
 		var _g = 0;
 		var _g1 = f.children;
 		while(_g < _g1.length) {
@@ -868,10 +923,7 @@ terminaljs_Terminal.initInput = function(terminal) {
 			window.setTimeout(function() {
 				terminal._inputLine.textContent = inputField.value;
 			},0);
-		}
-	};
-	inputField.onkeyup = function(e1) {
-		if(e1.key == "Enter") {
+		} else {
 			terminal.validate();
 		}
 	};

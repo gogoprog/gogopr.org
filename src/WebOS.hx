@@ -17,7 +17,7 @@ class WebOS {
 
     public function boot() {
         initFileSystem();
-        haxe.Timer.delay(onInit, 1500);
+        haxe.Timer.delay(onInit, 500);
     }
 
     public function execute(input:String) {
@@ -25,6 +25,9 @@ class WebOS {
         var cmd = words[0];
 
         if(cmd.length > 0) {
+            history.push(input);
+            historyIndex = history.length;
+
             try {
                 var slash = cmd.indexOf("/");
 
@@ -38,9 +41,22 @@ class WebOS {
             } catch(e:Dynamic) {
                 terminal.print("<span style='color:red'>Error: " + e + "</span>");
             }
+        }
+    }
 
-            history.push(input);
-            historyIndex = history.length;
+    public function updatePrompt() {
+        terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>:" + cwd.getFullPath() +"/]$ ");
+    }
+
+    public function resolveFile(input:String):FileNode {
+        if(input == null || input == "") {
+            return cwd;
+        }
+
+        if(input.charAt(0) == "/") {
+            return fileSystem.getFile(input);
+        } else {
+            return fileSystem.getFile(cwd.getFullPath() + "/" + input);
         }
     }
 
@@ -69,7 +85,6 @@ class WebOS {
         terminal.setHeight("100%");
         terminal.setWidth("100%");
         terminal.setBackgroundColor("rgba(0,0,0,0.35)");
-        terminal.setPrompt("[<span style='color:yellow'>user</span>@<span style='color:grey'>gogopr.org</span>]$ ");
         js.Browser.document.body.appendChild(terminal.html);
         terminal.print("Terminal initialized...");
     }
@@ -106,6 +121,7 @@ class WebOS {
     }
 
     private function onInit() {
+        updatePrompt();
         terminal.clear();
         execute("welcome");
         terminal.input(execute);

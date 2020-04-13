@@ -6,7 +6,7 @@ class Cat extends Program {
     }
 
     override public function run(terminal, args) {
-        var file = WebOS.instance.fileSystem.getFile(args);
+        var file = WebOS.instance.resolveFile(args);
         file.getContent(function(data) {
             terminal.print(data);
         });
