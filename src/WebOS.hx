@@ -101,6 +101,7 @@ class WebOS {
         terminal = new terminaljs.Terminal();
         terminal.setHeight("100%");
         terminal.setWidth("100%");
+        terminal.setTextColor("#eee");
         terminal.setBackgroundColor("rgba(0,0,0,0.35)");
         js.Browser.document.body.appendChild(terminal.html);
         terminal.print("Terminal initialized...");

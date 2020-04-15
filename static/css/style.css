@@ -38,11 +38,21 @@ body {
   margin: 4px;
 }
 
-div.games.show {
-  width: 512px;
-  height: 256px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.games.show {
+  display: flex;
+}
+
+.games.show .preview {
+  height: 300px;
   margin: 4px;
+}
+
+.games.show a {
+  color: yellow;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.games.show a:hover {
+  color: blue;
 }

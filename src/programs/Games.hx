@@ -11,12 +11,12 @@ class Games extends Program {
         var f = WebOS.instance.resolveFile("/var/games/items.json");
         f.getContent();
         var data = haxe.Json.parse(f.data);
-        var container = document.createElement("div");
-        container.className = "games";
         var items:Array<Dynamic> = cast data.items;
         var args = argsLine.split(" ");
 
         if(args[0] == "list") {
+            var container = document.createElement("div");
+            container.className = "games";
             function onclick(i:Int) {
                 return function() {
                     terminal.setInput("games show " + i);
@@ -39,14 +39,18 @@ class Games extends Program {
             terminal.append(container);
         } else if(args[0] == "show") {
             var index = Std.parseInt(args[1]);
+            var container = document.createElement("div");
+            container.className = "games show";
             var item = items[index];
-            var img = document.createElement("div");
-            img.className = "games show";
-            img.style.backgroundImage = 'url(static/${item.image})';
-            terminal.append(img);
-            terminal.print("Title: " + item.title);
-            terminal.print("Infos:");
-            terminal.print(item.description);
+            var img = document.createElement("img");
+            img.className = "preview";
+            untyped img.src = 'static/${item.image}';
+            container.appendChild(img);
+            var div = document.createElement("div");
+            div.className = "info";
+            div.innerHTML = item.title + "<p/>" + item.description;
+            container.appendChild(div);
+            terminal.append(container);
         } else {
             terminal.print("Usage: games [command]");
             terminal.print("Available commands:");

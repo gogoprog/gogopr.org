@@ -263,6 +263,7 @@ WebOS.prototype = {
 		this.terminal = new terminaljs_Terminal();
 		this.terminal.setHeight("100%");
 		this.terminal.setWidth("100%");
+		this.terminal.setTextColor("#eee");
 		this.terminal.setBackgroundColor("rgba(0,0,0,0.35)");
 		window.document.body.appendChild(this.terminal.html);
 		this.terminal.print("Terminal initialized...");
@@ -838,11 +839,11 @@ programs_Games.prototype = $extend(Program.prototype,{
 		var f = WebOS.instance.resolveFile("/var/games/items.json");
 		f.getContent();
 		var data = JSON.parse(f.data);
-		var container = window.document.createElement("div");
-		container.className = "games";
 		var items = data.items;
 		var args = argsLine.split(" ");
 		if(args[0] == "list") {
+			var container = window.document.createElement("div");
+			container.className = "games";
 			var onclick = function(i) {
 				return function() {
 					terminal.setInput("games show " + i);
@@ -866,14 +867,18 @@ programs_Games.prototype = $extend(Program.prototype,{
 			terminal.append(container);
 		} else if(args[0] == "show") {
 			var index = Std.parseInt(args[1]);
+			var container1 = window.document.createElement("div");
+			container1.className = "games show";
 			var item1 = items[index];
-			var img1 = window.document.createElement("div");
-			img1.className = "games show";
-			img1.style.backgroundImage = "url(static/" + item1.image + ")";
-			terminal.append(img1);
-			terminal.print("Title: " + item1.title);
-			terminal.print("Infos:");
-			terminal.print(item1.description);
+			var img1 = window.document.createElement("img");
+			img1.className = "preview";
+			img1.src = "static/" + item1.image;
+			container1.appendChild(img1);
+			var div = window.document.createElement("div");
+			div.className = "info";
+			div.innerHTML = item1.title + "<p/>" + item1.description;
+			container1.appendChild(div);
+			terminal.append(container1);
 		} else {
 			terminal.print("Usage: games [command]");
 			terminal.print("Available commands:");
