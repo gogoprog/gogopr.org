@@ -191,7 +191,7 @@ WebOS.prototype = {
 			try {
 				var slash = cmd.indexOf("/");
 				if(slash == -1) {
-					if(this.runFromPath("/bin",words) || this.runFromPath("/scripts",words)) {
+					if(this.runFromPath("/bin",words)) {
 						return;
 					} else {
 						this.terminal.print("Unknown command: " + cmd);
@@ -264,7 +264,7 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/scripts/startup","static/scripts/foo","static/var/foo.txt","static/var/welcome.txt","static/var/games/items.toml","static/var/games/items.json","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
+		var files1 = ["static/var/foo.txt","static/var/scripts/startup","static/var/scripts/foo","static/var/welcome.txt","static/var/games/items.toml","static/var/games/items.json","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
@@ -273,9 +273,6 @@ WebOS.prototype = {
 			var endPath = HxOverrides.substr(file1,6,null);
 			var node1 = this.fileSystem.registerFile(endPath,fs_FileType.WebFile);
 			node1.url = file1;
-			if(HxOverrides.substr(endPath,0,8) == "/scripts") {
-				node1.getContent();
-			}
 		}
 		var files2 = ["src/programs/Clear.hx","src/programs/Games.hx","src/programs/Help.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/programs/Cd.hx","src/programs/Ls.hx","src/WebOS.hx","src/fs/FileSystem.hx","src/Executable.hx","src/Script.hx","src/Website.hx","src/Macro.hx","src/Program.hx"];
 		var _g2 = 0;
@@ -290,7 +287,7 @@ WebOS.prototype = {
 	}
 	,onInit: function() {
 		this.updatePrompt();
-		this.execute("startup");
+		this.execute("/var/scripts/startup");
 		this.terminal.input($bind(this,this.execute));
 		this.terminal.keyDown($bind(this,this.keyDown));
 	}
@@ -387,6 +384,7 @@ fs_FileNode.prototype = {
 	,execute: function(terminal,args) {
 		if(this.type == fs_FileType.WebFile) {
 			if(this.executable == null) {
+				this.getContent();
 				this.executable = new Script(this.data);
 			}
 		}

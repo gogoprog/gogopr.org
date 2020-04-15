@@ -85,6 +85,7 @@ class FileNode {
     public function execute(terminal, args) {
         if(type == WebFile) {
             if(executable == null) {
+                getContent();
                 executable = new Script(data);
             }
         }

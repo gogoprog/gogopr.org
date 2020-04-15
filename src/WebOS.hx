@@ -33,7 +33,7 @@ class WebOS {
                 var slash = cmd.indexOf("/");
 
                 if(slash == -1) {
-                    if(runFromPath("/bin", words) || runFromPath("/scripts", words)) {
+                    if(runFromPath("/bin", words)) {
                         return;
                     } else {
                         terminal.print("Unknown command: " +  cmd);
@@ -128,10 +128,6 @@ class WebOS {
                 var endPath = file.substr(6);
                 var node = fileSystem.registerFile(endPath, WebFile);
                 node.url = file;
-
-                if(endPath.substr(0, 8) == "/scripts") {
-                    node.getContent();
-                }
             }
         }
         {
@@ -148,7 +144,7 @@ class WebOS {
 
     private function onInit() {
         updatePrompt();
-        execute("startup");
+        execute("/var/scripts/startup");
         terminal.input(execute);
         terminal.keyDown(keyDown);
     }
