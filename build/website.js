@@ -193,9 +193,21 @@ WebOS.prototype = {
 				if(slash == -1) {
 					if(this.runFromPath("/bin",words) || this.runFromPath("/scripts",words)) {
 						return;
+					} else {
+						this.terminal.print("Unknown command: " + cmd);
 					}
+					return;
+				} else if(slash == 0) {
+					if(this.runFromPath("",words)) {
+						return;
+					} else {
+						this.terminal.print("Cannot find " + cmd);
+					}
+				} else if(this.runFromPath(this.cwd.getFullPath(),words)) {
+					return;
+				} else {
+					this.terminal.print("Cannot find " + cmd);
 				}
-				this.terminal.print("Unknown command: " + cmd);
 			} catch( e ) {
 				if (e instanceof js__$Boot_HaxeError) e = e.val;
 				this.terminal.print("<span style='color:red'>Error: " + Std.string(e) + "</span>");
@@ -252,7 +264,7 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/scripts/startup","static/var/foo.txt","static/var/welcome.txt","static/var/games/items.toml","static/var/games/items.json","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
+		var files1 = ["static/scripts/startup","static/scripts/foo","static/var/foo.txt","static/var/welcome.txt","static/var/games/items.toml","static/var/games/items.json","static/images/chaos.png","static/images/care.png","static/images/crappybird.jpg","static/images/ship.gif","static/images/neon.webp","static/images/dnight.gif","static/images/redneck.jpg","static/images/onap.jpg","static/images/bananaaffair.png","static/images/elm.gif","static/images/bloody.png","static/images/doommap.png","static/images/blind.png","static/images/pastafaria.png","static/images/fish.png","static/images/chamosqui.png","static/images/straycatfever.png","static/images/coolguys.png","static/images/pacman.png","static/images/smm.gif","static/css/style.css"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
@@ -283,18 +295,12 @@ WebOS.prototype = {
 		this.terminal.keyDown($bind(this,this.keyDown));
 	}
 	,runFromPath: function(path,words) {
-		var bin = this.fileSystem.getFile(path);
 		var cmd = words[0];
-		var _g = 0;
-		var _g1 = bin.children;
-		while(_g < _g1.length) {
-			var file = _g1[_g];
-			++_g;
-			if(file.name == cmd) {
-				words.shift();
-				file.execute(this.terminal,words.join(" "));
-				return true;
-			}
+		var file = this.resolveFile(path + "/" + cmd);
+		if(file != null) {
+			words.shift();
+			file.execute(this.terminal,words.join(" "));
+			return true;
 		}
 		return false;
 	}

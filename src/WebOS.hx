@@ -35,10 +35,26 @@ class WebOS {
                 if(slash == -1) {
                     if(runFromPath("/bin", words) || runFromPath("/scripts", words)) {
                         return;
+                    } else {
+                        terminal.print("Unknown command: " +  cmd);
+                    }
+
+                    return;
+                } else {
+                    if(slash == 0) {
+                        if(runFromPath("", words)) {
+                            return;
+                        } else {
+                            terminal.print("Cannot find " + cmd);
+                        }
+                    } else {
+                        if(runFromPath(cwd.getFullPath(), words)) {
+                            return;
+                        } else {
+                            terminal.print("Cannot find " + cmd);
+                        }
                     }
                 }
-
-                terminal.print("Unknown command: " +  cmd);
             } catch(e:Dynamic) {
                 terminal.print("<span style='color:red'>Error: " + e + "</span>");
             }
@@ -138,15 +154,13 @@ class WebOS {
     }
 
     private function runFromPath(path, words):Bool {
-        var bin = fileSystem.getFile(path);
         var cmd = words[0];
+        var file = resolveFile(path + "/" + cmd);
 
-        for(file in bin.children) {
-            if(file.name == cmd) {
-                words.shift();
-                file.execute(terminal, words.join(" "));
-                return true;
-            }
+        if(file != null) {
+            words.shift();
+            file.execute(terminal, words.join(" "));
+            return true;
         }
 
         return false;
