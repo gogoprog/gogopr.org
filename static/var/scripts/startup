@@ -1,4 +1,4 @@
 clear
 cat /var/welcome.txt
 echo -
-games
+games list

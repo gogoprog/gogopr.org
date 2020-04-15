@@ -34,5 +34,15 @@ body {
   width: 148px;
   height: 148px;
   background-size: cover;
+  background-position: center;
+  margin: 4px;
+}
+
+div.games.show {
+  width: 512px;
+  height: 256px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   margin: 4px;
 }

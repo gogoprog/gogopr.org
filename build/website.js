@@ -28,6 +28,13 @@ Executable.__name__ = true;
 var HxOverrides = function() { };
 $hxClasses["HxOverrides"] = HxOverrides;
 HxOverrides.__name__ = true;
+HxOverrides.cca = function(s,index) {
+	var x = s.charCodeAt(index);
+	if(x != x) {
+		return undefined;
+	}
+	return x;
+};
 HxOverrides.substr = function(s,pos,len) {
 	if(len == null) {
 		len = s.length;
@@ -121,6 +128,16 @@ $hxClasses["Std"] = Std;
 Std.__name__ = true;
 Std.string = function(s) {
 	return js_Boot.__string_rec(s,"");
+};
+Std.parseInt = function(x) {
+	var v = parseInt(x,10);
+	if(v == 0 && (HxOverrides.cca(x,1) == 120 || HxOverrides.cca(x,1) == 88)) {
+		v = parseInt(x);
+	}
+	if(isNaN(v)) {
+		return null;
+	}
+	return v;
 };
 var Type = function() { };
 $hxClasses["Type"] = Type;
@@ -817,31 +834,52 @@ $hxClasses["programs.Games"] = programs_Games;
 programs_Games.__name__ = true;
 programs_Games.__super__ = Program;
 programs_Games.prototype = $extend(Program.prototype,{
-	run: function(terminal,args) {
+	run: function(terminal,argsLine) {
 		var f = WebOS.instance.resolveFile("/var/games/items.json");
 		f.getContent();
 		var data = JSON.parse(f.data);
 		var container = window.document.createElement("div");
 		container.className = "games";
 		var items = data.items;
-		var _g = 0;
-		while(_g < items.length) {
-			var item = [items[_g]];
-			++_g;
-			var el = window.document.createElement("div");
-			var img = window.document.createElement("div");
-			img.style.backgroundImage = "url(static/" + Std.string(item[0].image) + ")";
-			el.appendChild(img);
-			container.appendChild(el);
-			img.onclick = (function(item1) {
+		var args = argsLine.split(" ");
+		if(args[0] == "list") {
+			var onclick = function(i) {
 				return function() {
-					terminal.setInput("echo " + Std.string(item1[0].title));
+					terminal.setInput("games show " + i);
 					terminal.validate();
 				};
-			})(item);
+			};
+			var i1 = 0;
+			var _g = 0;
+			while(_g < items.length) {
+				var item = items[_g];
+				++_g;
+				var el = window.document.createElement("div");
+				var img = window.document.createElement("div");
+				img.style.backgroundImage = "url(static/" + Std.string(item.image) + ")";
+				el.appendChild(img);
+				container.appendChild(el);
+				img.onclick = onclick(i1);
+				++i1;
+			}
+			terminal.print("Non-exhaustive list of games I made in my free time or for game jams:");
+			terminal.append(container);
+		} else if(args[0] == "show") {
+			var index = Std.parseInt(args[1]);
+			var item1 = items[index];
+			var img1 = window.document.createElement("div");
+			img1.className = "games show";
+			img1.style.backgroundImage = "url(static/" + item1.image + ")";
+			terminal.append(img1);
+			terminal.print("Title: " + item1.title);
+			terminal.print("Infos:");
+			terminal.print(item1.description);
+		} else {
+			terminal.print("Usage: games [command]");
+			terminal.print("Available commands:");
+			terminal.print("  list");
+			terminal.print("  show [index]");
 		}
-		terminal.print("Non-exhaustive list of games I made in my free time or for game jams:");
-		terminal.append(container);
 	}
 });
 var programs_Help = function() {
@@ -989,10 +1027,13 @@ terminaljs_Terminal.prototype = {
 		newLine.style.fontFamily = "inherit";
 		newLine.innerHTML = message;
 		this._output.appendChild(newLine);
-		this.html.scrollTop = this.html.scrollHeight;
+		this.scrollToBottom();
 	}
 	,append: function(element) {
 		this._output.appendChild(element);
+		this.scrollToBottom();
+	}
+	,scrollToBottom: function() {
 		this.html.scrollTop = this.html.scrollHeight;
 	}
 	,input: function(callback) {
