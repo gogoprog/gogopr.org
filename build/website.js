@@ -831,7 +831,8 @@ programs_Games.prototype = $extend(Program.prototype,{
 			container.appendChild(el);
 			img.onclick = (function(item1) {
 				return function() {
-					terminal.print(item1[0].title);
+					terminal.setInput("echo " + Std.string(item1[0].title));
+					terminal.validate();
 				};
 			})(item);
 		}

@@ -22,7 +22,8 @@ class Games extends Program {
             el.appendChild(img);
             container.appendChild(el);
             img.onclick = function() {
-                terminal.print(item.title);
+                terminal.setInput("echo " + item.title);
+                terminal.validate();
             };
         }
 
