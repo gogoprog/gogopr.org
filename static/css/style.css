@@ -47,12 +47,19 @@ body {
   margin: 4px;
 }
 
-.games.show a {
+a {
   color: yellow;
   text-decoration: none;
   font-weight: bold;
 }
 
-.games.show a:hover {
+a:hover {
   color: blue;
+}
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 3px;
 }
