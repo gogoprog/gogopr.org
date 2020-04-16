@@ -199,6 +199,10 @@ WebOS.prototype = {
 		this.terminal.print("WebOS Initialization completed.");
 		haxe_Timer.delay($bind(this,this.onInit),500);
 	}
+	,setInputAndValidate: function(input) {
+		this.terminal.setInput(input);
+		this.terminal.validate();
+	}
 	,execute: function(input) {
 		var words = input.split(" ");
 		var cmd = words[0];
@@ -326,6 +330,15 @@ Website.__name__ = true;
 Website.main = function() {
 	var webos = new WebOS();
 	webos.boot();
+	window.onload = function() {
+		console.log("yep");
+		window.document.querySelector(".quicklinks .games").onclick = function() {
+			webos.setInputAndValidate("games list");
+		};
+		window.document.querySelector(".quicklinks .contact").onclick = function() {
+			webos.setInputAndValidate("cat /var/contact.html");
+		};
+	};
 };
 var fs_FileType = { __ename__ : true, __constructs__ : ["Unset","Directory","BuiltinBinary","WebFile"] };
 fs_FileType.Unset = ["Unset",0];

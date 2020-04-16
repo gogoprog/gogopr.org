@@ -56,10 +56,33 @@ a {
 a:hover {
   color: blue;
 }
+
 .icon {
   display: inline-block;
   width: 16px;
   height: 16px;
   position: relative;
   top: 3px;
+}
+
+.quicklinks {
+  position: fixed;
+  top: 0;
+  right: 24px;
+  width: 200px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-family: Monaco, Courier;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.quicklinks>div {
+  cursor: pointer;
+}
+
+.quicklinks>div:hover {
+  color: black;
 }

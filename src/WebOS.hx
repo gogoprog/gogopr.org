@@ -21,6 +21,11 @@ class WebOS {
         haxe.Timer.delay(onInit, 500);
     }
 
+    public function setInputAndValidate(input:String) {
+        terminal.setInput(input);
+        terminal.validate();
+    }
+
     public function execute(input:String) {
         var words = input.split(" ");
         var cmd = words[0];
