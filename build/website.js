@@ -1017,7 +1017,7 @@ terminaljs_Terminal.initInput = function(terminal) {
 		} else if(e.key != "Enter") {
 			window.setTimeout(function() {
 				terminal._inputLine.textContent = inputField.value;
-			},0);
+			},1);
 		} else {
 			terminal.validate();
 		}
