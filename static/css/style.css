@@ -5,6 +5,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  font-size:13px;
 }
 
 body {
@@ -74,8 +75,8 @@ a:hover {
   position: fixed;
   top: 0;
   right: 24px;
-  width: 200px;
-  height: 24px;
+  width: 140px;
+  height: 20px;
   background-color: rgba(255, 255, 255, 0.5);
   font-family: Monaco, Courier;
   color: #ccc;
