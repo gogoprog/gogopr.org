@@ -36,6 +36,11 @@ body {
   background-size: cover;
   background-position: center;
   margin: 4px;
+  transition: all 0.3s;
+}
+
+.games>div>div:hover {
+  transform: scale(1.2);
 }
 
 .games.show {

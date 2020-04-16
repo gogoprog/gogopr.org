@@ -24,6 +24,7 @@ class WebOS {
     public function setInputAndValidate(input:String) {
         terminal.setInput(input);
         terminal.validate();
+        terminal.focus();
     }
 
     public function execute(input:String) {
@@ -107,7 +108,7 @@ class WebOS {
         terminal.setHeight("100%");
         terminal.setWidth("100%");
         terminal.setTextColor("#eee");
-        terminal.setBackgroundColor("rgba(0,0,0,0.35)");
+        terminal.setBackgroundColor("rgba(0,0,0,0.4)");
         js.Browser.document.body.appendChild(terminal.html);
         terminal.print("Terminal initialized...");
     }

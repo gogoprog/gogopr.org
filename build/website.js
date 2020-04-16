@@ -202,6 +202,7 @@ WebOS.prototype = {
 	,setInputAndValidate: function(input) {
 		this.terminal.setInput(input);
 		this.terminal.validate();
+		this.terminal.focus();
 	}
 	,execute: function(input) {
 		var words = input.split(" ");
@@ -268,7 +269,7 @@ WebOS.prototype = {
 		this.terminal.setHeight("100%");
 		this.terminal.setWidth("100%");
 		this.terminal.setTextColor("#eee");
-		this.terminal.setBackgroundColor("rgba(0,0,0,0.35)");
+		this.terminal.setBackgroundColor("rgba(0,0,0,0.4)");
 		window.document.body.appendChild(this.terminal.html);
 		this.terminal.print("Terminal initialized...");
 	}
@@ -918,14 +919,6 @@ programs_Help.prototype = $extend(Program.prototype,{
 			++_g;
 			terminal.print("  " + file.name);
 		}
-		var scripts = fs.getFile("/scripts");
-		var _g2 = 0;
-		var _g11 = scripts.children;
-		while(_g2 < _g11.length) {
-			var file1 = _g11[_g2];
-			++_g2;
-			terminal.print("  " + file1.name);
-		}
 	}
 });
 var programs_Ls = function() {
@@ -1095,6 +1088,9 @@ terminaljs_Terminal.prototype = {
 	,setInput: function(value) {
 		this._inputField.value = value;
 		this._inputLine.textContent = this._inputField.value;
+	}
+	,focus: function() {
+		this._inputField.focus();
 	}
 };
 var $_, $fid = 0;

@@ -13,11 +13,5 @@ class Help extends Program {
         for(file in bin.children) {
             terminal.print("  " + file.name);
         }
-
-        var scripts = fs.getFile("/scripts");
-
-        for(file in scripts.children) {
-            terminal.print("  " + file.name);
-        }
     }
 }
