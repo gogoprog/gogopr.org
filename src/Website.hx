@@ -6,7 +6,6 @@ class Website {
         var webos = new WebOS();
         webos.boot();
         window.onload = function() {
-            trace("yep");
             document.querySelector(".quicklinks .games").onclick = function() {
                 webos.setInputAndValidate("games list");
             };

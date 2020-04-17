@@ -310,9 +310,21 @@ WebOS.prototype = {
 	}
 	,onInit: function() {
 		this.updatePrompt();
-		this.execute("/var/scripts/startup");
-		this.terminal.input($bind(this,this.execute));
-		this.terminal.keyDown($bind(this,this.keyDown));
+		var urlCommand = null;
+		try {
+			var params = new URL(location.href).searchParams;
+			urlCommand = params.get("cmd");
+		} catch( e ) {
+		}
+		if(urlCommand == null) {
+			this.execute("/var/scripts/startup");
+			this.terminal.input($bind(this,this.execute));
+			this.terminal.keyDown($bind(this,this.keyDown));
+		} else {
+			this.terminal.input($bind(this,this.execute));
+			this.terminal.keyDown($bind(this,this.keyDown));
+			this.setInputAndValidate(urlCommand);
+		}
 	}
 	,runFromPath: function(path,words) {
 		var cmd = words[0];
@@ -332,7 +344,6 @@ Website.main = function() {
 	var webos = new WebOS();
 	webos.boot();
 	window.onload = function() {
-		console.log("yep");
 		window.document.querySelector(".quicklinks .games").onclick = function() {
 			webos.setInputAndValidate("games list");
 		};

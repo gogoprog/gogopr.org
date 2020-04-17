@@ -19,7 +19,7 @@ body {
   left: 0;
   top: 0;
   text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .games {

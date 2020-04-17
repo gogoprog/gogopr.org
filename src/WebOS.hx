@@ -151,9 +151,23 @@ class WebOS {
 
     private function onInit() {
         updatePrompt();
-        execute("/var/scripts/startup");
-        terminal.input(execute);
-        terminal.keyDown(keyDown);
+        var urlCommand:String = null;
+
+        try {
+            var params = untyped __js__("new URL(location.href).searchParams");
+            urlCommand = params.get('cmd');
+        } catch(e:Dynamic) {
+        }
+
+        if(urlCommand == null) {
+            execute("/var/scripts/startup");
+            terminal.input(execute);
+            terminal.keyDown(keyDown);
+        } else {
+            terminal.input(execute);
+            terminal.keyDown(keyDown);
+            setInputAndValidate(urlCommand);
+        }
     }
 
     private function runFromPath(path, words):Bool {
