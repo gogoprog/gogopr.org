@@ -2,6 +2,13 @@
   "items": [
     {
       "alt": "",
+      "description": "Entry for the BBQJAM #1.<br/>Save the sausages!<br/><a target='_blank' href='https://gogoprog.itch.io/sausage-redemption'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/bbqjam1'>Sources</a>\n",
+      "image": "images/sausage.png",
+      "thumb": "images/sausage.png",
+      "title": "Sausage Redemption"
+    },
+    {
+      "alt": "",
       "description": "A 2047 bytes game made for the 2kPlus Jam\n<br/><a target='_blank' href='https://gogoprog.itch.io/ship2k'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/2kplus-jam'>Sources</a>\n",
       "image": "images/ship.gif",
       "thumb": "images/ship.gif",
