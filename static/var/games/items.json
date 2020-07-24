@@ -2,6 +2,13 @@
   "items": [
     {
       "alt": "",
+      "description": "Entry for the JS1024 2020.<br/>Game size < 1024 bytes!<br/><a target='_blank' href='https://js1024.fun/demos/2020#40'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/js1024-2020'>Sources</a>\n",
+      "image": "images/blue.gif",
+      "thumb": "images/blue.gif",
+      "title": "Blue Sunset Flight"
+    },
+    {
+      "alt": "",
       "description": "Entry for the BBQJAM #1.<br/>Save the sausages!<br/><a target='_blank' href='https://gogoprog.itch.io/sausage-redemption'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/bbqjam1'>Sources</a>\n",
       "image": "images/sausage.png",
       "thumb": "images/sausage.png",
