@@ -154,7 +154,7 @@ class WebOS {
         var urlCommand:String = null;
 
         try {
-            var params = untyped __js__("new URL(location.href).searchParams");
+            var params = untyped js.Syntax.code("new URL(location.href).searchParams");
             urlCommand = params.get('cmd');
         } catch(e:Dynamic) {
         }
