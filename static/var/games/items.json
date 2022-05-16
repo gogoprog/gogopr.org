@@ -2,6 +2,13 @@
   "items": [
     {
       "alt": "",
+      "description": "A Wordle clone with more features\n<br/><a target='_blank' href='https://gogoprog.github.io/motuz/src/?lang=en'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/motuz'>Sources</a>\n",
+      "image": "images/motuz.png",
+      "thumb": "images/motuz.png",
+      "title": "Motuz"
+    },
+    {
+      "alt": "",
       "description": "Ported Ship2k to use W library\n<br/><a target='_blank' href='https://gogoprog.github.io/ship2k22/retail/'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/ship2k22'>Sources</a>\n",
       "image": "images/ship2k22.gif",
       "thumb": "images/ship2k22.gif",
