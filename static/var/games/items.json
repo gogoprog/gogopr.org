@@ -2,6 +2,13 @@
   "items": [
     {
       "alt": "",
+      "description": "SDL jam 2022 entry<br/><a target='_blank' href='https://gogoprog.github.io/sdljam/web/sdljam.html'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/sdljam'>Sources</a>\n",
+      "image": "images/vacuum.gif",
+      "thumb": "images/vacuum.gif",
+      "title": "Vacuum Cleaner"
+    },
+    {
+      "alt": "",
       "description": "A Wordle clone with more features\n<br/><a target='_blank' href='https://gogoprog.github.io/motuz/src/?lang=en'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/motuz'>Sources</a>\n",
       "image": "images/motuz.png",
       "thumb": "images/motuz.png",
