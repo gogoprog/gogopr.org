@@ -2,6 +2,13 @@
   "items": [
     {
       "alt": "",
+      "description": "js1024 2022 entry<br/><a target='_blank' href='https://gogoprog.github.io/js1024-2022/retail/index.html'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/js1024-2022'>Sources</a>\n",
+      "image": "images/maze3d.gif",
+      "thumb": "images/maze3d.gif",
+      "title": "Maze3D"
+    },
+    {
+      "alt": "",
       "description": "SDL jam 2022 entry<br/><a target='_blank' href='https://gogoprog.github.io/sdljam/web/sdljam.html'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/sdljam'>Sources</a>\n",
       "image": "images/vacuum.gif",
       "thumb": "images/vacuum.gif",
