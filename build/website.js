@@ -275,7 +275,7 @@ WebOS.prototype = {
 	}
 	,initFileSystem: function() {
 		this.fileSystem = new fs_FileSystem();
-		var files = ["src/programs/Clear.hx","src/programs/Help.hx","src/programs/Cat.hx","src/programs/Echo.hx","src/programs/Games.hx","src/programs/Cd.hx","src/programs/Ls.hx"];
+		var files = ["src/programs/Clear.hx","src/programs/Ls.hx","src/programs/Cd.hx","src/programs/Help.hx","src/programs/Games.hx","src/programs/Echo.hx","src/programs/Cat.hx"];
 		var _g = 0;
 		while(_g < files.length) {
 			var file = files[_g];
@@ -287,7 +287,7 @@ WebOS.prototype = {
 			var pgm = Type.createInstance(Type.resolveClass("programs." + name),[]);
 			node.executable = pgm;
 		}
-		var files1 = ["static/images/doommap.png","static/images/chamosqui.png","static/images/blue.gif","static/images/bananaaffair.png","static/images/neon.webp","static/images/motuz.png","static/images/bloody.png","static/images/redneck.jpg","static/images/sausage.png","static/images/pacman.png","static/images/care.png","static/images/fish.png","static/images/maze3d.gif","static/images/onap.jpg","static/images/vacuum.gif","static/images/breakout.gif","static/images/dnight.gif","static/images/straycatfever.png","static/images/pastafaria.png","static/images/ship.gif","static/images/crappybird.jpg","static/images/blind.png","static/images/ship2k22.gif","static/images/elm.gif","static/images/smm.gif","static/images/chaos.png","static/images/coolguys.png","static/var/games/items.json","static/var/games/items.toml","static/var/foo.txt","static/var/welcome.txt","static/var/contact.html","static/var/scripts/startup","static/var/scripts/foo","static/css/style.css"];
+		var files1 = ["static/var/scripts/foo","static/var/scripts/startup","static/var/games/items.json","static/var/games/items.toml","static/var/welcome.txt","static/var/foo.txt","static/var/contact.html","static/css/style.css","static/images/coolguys.png","static/images/bloody.png","static/images/doommap.png","static/images/onap.jpg","static/images/neon.webp","static/images/vacuum.gif","static/images/ship.gif","static/images/chaos.png","static/images/bananaaffair.png","static/images/smm.gif","static/images/minipuyo.png","static/images/ship2k22.gif","static/images/care.png","static/images/luck.png","static/images/pacman.png","static/images/elm.gif","static/images/redneck.jpg","static/images/sausage.png","static/images/fish.png","static/images/motuz.png","static/images/blind.png","static/images/blue.gif","static/images/straycatfever.png","static/images/breakout.gif","static/images/maze3d.gif","static/images/pastafaria.png","static/images/crappybird.jpg","static/images/chamosqui.png","static/images/dnight.gif"];
 		var _g1 = 0;
 		while(_g1 < files1.length) {
 			var file1 = files1[_g1];
@@ -297,7 +297,7 @@ WebOS.prototype = {
 			var node1 = this.fileSystem.registerFile(endPath,fs_FileType.WebFile);
 			node1.url = file1;
 		}
-		var files2 = ["src/programs/Clear.hx","src/programs/Help.hx","src/programs/Cat.hx","src/programs/Echo.hx","src/programs/Games.hx","src/programs/Cd.hx","src/programs/Ls.hx","src/Program.hx","src/Website.hx","src/Executable.hx","src/Macro.hx","src/Script.hx","src/WebOS.hx","src/fs/FileSystem.hx"];
+		var files2 = ["src/fs/FileSystem.hx","src/Macro.hx","src/Script.hx","src/Program.hx","src/programs/Clear.hx","src/programs/Ls.hx","src/programs/Cd.hx","src/programs/Help.hx","src/programs/Games.hx","src/programs/Echo.hx","src/programs/Cat.hx","src/Website.hx","src/Executable.hx","src/WebOS.hx"];
 		var _g2 = 0;
 		while(_g2 < files2.length) {
 			var file2 = files2[_g2];
