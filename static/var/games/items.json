@@ -2,6 +2,20 @@
   "items": [
     {
       "alt": "",
+      "description": "JS13K 2023 entry<br/><a target='_blank' href='https://js13kgames.com/entries/minipuyo'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/minipuyo'>Sources</a>\n",
+      "image": "images/minipuyo.png",
+      "thumb": "images/minipuyo.png",
+      "title": "MiniPuyo"
+    },
+    {
+      "alt": "",
+      "description": "js1024 2023 entry<br/><a target='_blank' href='https://js1024.fun/demos/2023/9'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/js1024-2023'>Sources</a>\n",
+      "image": "images/luck.png",
+      "thumb": "images/luck.png",
+      "title": "LuckyBalls"
+    },
+    {
+      "alt": "",
       "description": "js1024 2022 entry<br/><a target='_blank' href='https://gogoprog.github.io/js1024-2022/retail/index.html'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/js1024-2022'>Sources</a>\n",
       "image": "images/maze3d.gif",
       "thumb": "images/maze3d.gif",
