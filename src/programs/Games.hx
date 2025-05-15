@@ -28,7 +28,7 @@ class Games extends Program {
             for(item in items) {
                 var el = document.createElement("div");
                 var img = document.createElement("div");
-                img.style.backgroundImage = 'url(static/${item.image})';
+                img.style.backgroundImage = 'url(static/${item.thumb})';
                 el.appendChild(img);
                 container.appendChild(el);
                 img.onclick = onclick(i);
@@ -49,6 +49,17 @@ class Games extends Program {
             var div = document.createElement("div");
             div.className = "info";
             div.innerHTML = item.title + "<p/>" + item.description;
+
+            if(item.play != null)
+            {
+                div.innerHTML += "<p/> <a target='_blank' href='" + item.play + "'>Play</a>";
+            }
+
+            if(item.sources != null)
+            {
+                div.innerHTML += "<p/> <a target='_blank' href='" + item.sources + "'>Sources</a>";
+            }
+
             container.appendChild(div);
             terminal.append(container);
         } else {

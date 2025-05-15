@@ -2,6 +2,42 @@
   "items": [
     {
       "alt": "",
+      "description": "Entry for the 1-BIT JAM #4",
+      "play": "https://gogoprog.itch.io/towerfps",
+      "sources": "https://github.com/gogoprog/minifps",
+      "image": "images/towerfps.png",
+      "thumb": "images/towerfps.png",
+      "title": "TowerFPS"
+    },
+    {
+      "alt": "",
+      "description": "Entry for the js13k jam 2024<br/>",
+      "play": "https://js13kgames.com/2024/games/mini13-a-very-minimal-fps",
+      "sources": "https://github.com/gogoprog/mini13",
+      "image": "images/mini13.png",
+      "thumb": "images/mini13.png",
+      "title": "Mini13"
+    },
+    {
+      "alt": "",
+      "description": "Entry for the SDL jam 2024<br/>RTS made in C++ with SDL",
+      "play": "https://gogoprog.itch.io/island-war",
+      "sources": "https://github.com/gogoprog/sdljam2024",
+      "image": "images/island2.png",
+      "thumb": "images/island1.png",
+      "title": "Island War"
+    },
+    {
+      "alt": "",
+      "description": "Christmas 2013 game",
+      "play": "https://gogoprog.itch.io/mariah-carnage",
+      "sources": "https://github.com/gogoprog/mariah-carnage",
+      "image": "images/mariah.gif",
+      "thumb": "images/mariah.gif",
+      "title": "Mariah Carnage"
+    },
+    {
+      "alt": "",
       "description": "JS13K 2023 entry<br/><a target='_blank' href='https://js13kgames.com/entries/minipuyo'>Play</a>\n<br/><a target='_blank' href='https://github.com/gogoprog/minipuyo'>Sources</a>\n",
       "image": "images/minipuyo.png",
       "thumb": "images/minipuyo.png",
